@@ -15,6 +15,8 @@ const relevantEvents = new Set([
   'price.created',
   'price.updated',
   'price.deleted',
+  'plan.created',
+  'plan.deleted',
   'checkout.session.completed',
   'customer.subscription.created',
   'customer.subscription.updated',
@@ -48,17 +50,25 @@ export async function POST(req: Request) {
   }
 
   if (relevantEvents.has(event.type)) {
-    try {
+    try {    console.log("Try")
+
       switch (event.type) {
+        
         case 'product.created':
         case 'product.updated':
+          console.log("Error 1")
+
           await upsertProductRecord(event.data.object as Stripe.Product);
           break;
         case 'price.created':
         case 'price.updated':
+          console.log("Error 2")
+
           await upsertPriceRecord(event.data.object as Stripe.Price);
           break;
         case 'price.deleted':
+          console.log("Error 3")
+
           await deletePriceRecord(event.data.object as Stripe.Price);
           break;
         case 'product.deleted':
@@ -67,22 +77,35 @@ export async function POST(req: Request) {
         case 'customer.subscription.created':
         case 'customer.subscription.updated':
         case 'customer.subscription.deleted':
+          console.log("Error 4")
+
           const subscription = event.data.object as Stripe.Subscription;
+          console.log("subscription = "+subscription)
+
           await manageSubscriptionStatusChange(
             subscription.id,
             subscription.customer as string,
             event.type === 'customer.subscription.created'
+            
           );
+          console.log("Error 5")
+
           break;
         case 'checkout.session.completed':
+          console.log("Error 6")
+
           const checkoutSession = event.data.object as Stripe.Checkout.Session;
           if (checkoutSession.mode === 'subscription') {
+            console.log("Error 7")
+
             const subscriptionId = checkoutSession.subscription;
             await manageSubscriptionStatusChange(
               subscriptionId as string,
               checkoutSession.customer as string,
               true
             );
+            console.log("Error 8")
+
           }
           break;
         default:
