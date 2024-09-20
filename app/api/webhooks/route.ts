@@ -28,10 +28,11 @@ console.log("Hello API/route")
 export async function POST(req: Request) {
   const body = await req.text();
   const sig = req.headers.get('stripe-signature') as string;
-  console.log(sig)
+  console.log("body= "+body)
+  console.log("sig= "+sig)
 
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-  console.log(webhookSecret)
+  console.log("webhookSecret = "+webhookSecret)
 
   let event: Stripe.Event;
 
@@ -51,7 +52,11 @@ export async function POST(req: Request) {
 
   if (relevantEvents.has(event.type)) {
     try {    console.log("Try")
+      console.log('Received event:', event);
+      console.log('Webhook event:', req.body);
 
+
+      console.log("Trevent.typey"+event.type)
       switch (event.type) {
         
         case 'product.created':
@@ -59,20 +64,29 @@ export async function POST(req: Request) {
           console.log("Error 1")
 
           await upsertProductRecord(event.data.object as Stripe.Product);
+          console.log("event.data.object"+event.data.object)
+
           break;
+
         case 'price.created':
         case 'price.updated':
           console.log("Error 2")
 
           await upsertPriceRecord(event.data.object as Stripe.Price);
+          console.log("event.data.object"+event.data.object)
+
           break;
         case 'price.deleted':
           console.log("Error 3")
 
           await deletePriceRecord(event.data.object as Stripe.Price);
+          console.log("event.data.object"+event.data.object)
+
           break;
         case 'product.deleted':
           await deleteProductRecord(event.data.object as Stripe.Product);
+          console.log("event.data.object"+event.data.object)
+
           break;
         case 'customer.subscription.created':
         case 'customer.subscription.updated':
@@ -80,6 +94,7 @@ export async function POST(req: Request) {
           console.log("Error 4")
 
           const subscription = event.data.object as Stripe.Subscription;
+          
           console.log("subscription = "+subscription)
 
           await manageSubscriptionStatusChange(
