@@ -114,6 +114,8 @@ export async function requestPasswordUpdate(formData: FormData) {
       'Please try again.'
     );
   } else if (data) {
+    console.log("Success, Please check your email");
+
     redirectPath = getStatusRedirect(
       '/signin/forgot_password',
       'Success!',
