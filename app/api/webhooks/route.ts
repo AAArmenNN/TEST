@@ -56,21 +56,24 @@ export async function POST(req: Request) {
       console.log('Webhook event:', req.body);
 
 
-      console.log("Trevent.typey"+event.type)
+      console.log("event.type = "+event.type)
       switch (event.type) {
         
         case 'product.created':
         case 'product.updated':
-          console.log("Error 1")
+          console.log("step 1")
+
+          console.log("event.data.object = "+event.data.object)
+          console.log("event.data.object detail= " + JSON.stringify(event.data.object));
 
           await upsertProductRecord(event.data.object as Stripe.Product);
-          console.log("event.data.object"+event.data.object)
 
           break;
 
         case 'price.created':
+          console.log("STEP 2")
+
         case 'price.updated':
-          console.log("Error 2")
 
           await upsertPriceRecord(event.data.object as Stripe.Price);
           console.log("event.data.object"+event.data.object)
