@@ -11,6 +11,9 @@ import {
 } from '@/utils/helpers';
 import { Tables } from '@/types_db';
 
+console.log("Hello Stripe/server")
+
+
 type Price = Tables<'prices'>;
 
 type CheckoutResponse = {

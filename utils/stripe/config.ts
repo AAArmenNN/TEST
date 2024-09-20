@@ -1,4 +1,5 @@
 import Stripe from 'stripe';
+console.log("Hello Stripe/config")
 
 export const stripe = new Stripe(
   process.env.STRIPE_SECRET_KEY_LIVE ?? process.env.STRIPE_SECRET_KEY ?? '',
