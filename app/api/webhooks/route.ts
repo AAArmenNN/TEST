@@ -110,11 +110,11 @@ export async function POST(req: Request) {
 
           break;
         case 'checkout.session.completed':
-          console.log("Error 6")
+          console.log("🏆 UTILISATEUR PREMIUM")
 
           const checkoutSession = event.data.object as Stripe.Checkout.Session;
           if (checkoutSession.mode === 'subscription') {
-            console.log("Error 7")
+            console.log("🏆 UTILISATEUR PREMIUM -2")
 
             const subscriptionId = checkoutSession.subscription;
             await manageSubscriptionStatusChange(
@@ -145,3 +145,6 @@ export async function POST(req: Request) {
   }
   return new Response(JSON.stringify({ received: true }));
 }
+
+
+
