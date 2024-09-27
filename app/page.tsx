@@ -24,10 +24,6 @@ export default async function PricingPage() {
 
 
 //=====================================
-
-
-
-
     // Initialisation du client Resend avec la clé API
     const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -46,9 +42,6 @@ export default async function PricingPage() {
     } catch (error) {
       console.error('Erreur lors de l\'envoi de l\'email :', error);
     }
-
-
-
 //=====================================
 
 

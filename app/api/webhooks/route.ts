@@ -7,6 +7,8 @@ import {
   deleteProductRecord,
   deletePriceRecord
 } from '@/utils/supabase/admin';
+import { Resend } from 'resend';
+
 
 const relevantEvents = new Set([
   'product.created',
@@ -22,17 +24,17 @@ const relevantEvents = new Set([
   'customer.subscription.updated',
   'customer.subscription.deleted'
 ]);
-console.log("Hello API/route")
+//console.log("Hello API/route")
 
 
 export async function POST(req: Request) {
   const body = await req.text();
   const sig = req.headers.get('stripe-signature') as string;
-  console.log("body= "+body)
-  console.log("sig= "+sig)
+  //console.log("body= "+body)
+  //console.log("sig= "+sig)
 
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-  console.log("webhookSecret = "+webhookSecret)
+  //console.log("webhookSecret = "+webhookSecret)
 
   let event: Stripe.Event;
 
@@ -40,7 +42,7 @@ export async function POST(req: Request) {
     if (!sig || !webhookSecret)
       return new Response('Webhook secret not found.', { status: 400 });
     event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
-    console.log("Webhook received")
+    //console.log("Webhook received")
 
     console.log(`🔔  Webhook received: ${event.type}`);
   } catch (err: any) {
@@ -80,7 +82,7 @@ export async function POST(req: Request) {
 
           break;
         case 'price.deleted':
-          console.log("Error 3")
+          //console.log("Error 3")
 
           await deletePriceRecord(event.data.object as Stripe.Price);
           console.log("event.data.object"+event.data.object)
@@ -94,7 +96,7 @@ export async function POST(req: Request) {
         case 'customer.subscription.created':
         case 'customer.subscription.updated':
         case 'customer.subscription.deleted':
-          console.log("Error 4")
+          //console.log("Error 4")
 
           const subscription = event.data.object as Stripe.Subscription;
           
@@ -110,11 +112,34 @@ export async function POST(req: Request) {
 
           break;
         case 'checkout.session.completed':
-          console.log("🏆 UTILISATEUR PREMIUM")
+          console.log("<🏆 UTILISATEUR PREMIUM>")
 
           const checkoutSession = event.data.object as Stripe.Checkout.Session;
           if (checkoutSession.mode === 'subscription') {
-            console.log("🏆 UTILISATEUR PREMIUM -2")
+            //console.log("🏆 UTILISATEUR PREMIUM -2")
+            //=====================================
+    // Initialisation du client Resend avec la clé API
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    // Envoi d'un email lors de la visite de la page
+    try {
+      await resend.emails.send({
+
+        from: 'Compta-Training <onboarding@resend.dev>',
+        to: ['armen.etarian@gmail.com'],
+        subject: '🏆 Compta-Training Premium',
+        // react: "🔥 Bienvenue sur Compta-Training !",
+        react: 'Félicitation ! vous êtes maintenant un menbre premium', // Utilisation du template React
+      });
+  
+      console.log('🟩 Email Premium envoyé avec succès');
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi de l\'email :', error);
+    }
+//=====================================
+
+
+
 
             const subscriptionId = checkoutSession.subscription;
             await manageSubscriptionStatusChange(
@@ -122,7 +147,7 @@ export async function POST(req: Request) {
               checkoutSession.customer as string,
               true
             );
-            console.log("Error 8")
+            //console.log("Error 8")
 
           }
           break;
