@@ -8,6 +8,7 @@ import { getAuthTypes } from 'utils/auth-helpers/settings';
 
 import { Resend } from 'resend';
 
+console.log("utils/Server")
 
 function isValidEmail(email: string) {
   var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -181,32 +182,12 @@ export async function signUp(formData: FormData) {
       'Invalid email address.',
       'Please try again.'
     );
-  }
 
-  const supabase = createClient();
-  const { error, data } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: callbackURL
-    }
-  });
-
-  if (error) {
-    redirectPath = getErrorRedirect(
-      '/signin/signup',
-      'Sign up failed.',
-      error.message
-    );
-  } else if (data.session) { // imédiatement connecté
-    redirectPath = getStatusRedirect('/', 'Success!', 'You are now signed in.');
+    //=====================================================
+    console.log("<> 1 Nouvel Utilisateur = ")
 
 
-   //=====================================================
-    console.log("<> 1 Nouvel Utilisateur = "+data.session )
-
-
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    let resend = new Resend(process.env.RESEND_API_KEY);
 
     // Envoi d'un email lors de la visite de la page
     try {
@@ -226,6 +207,51 @@ export async function signUp(formData: FormData) {
 
 
    //=====================================================
+
+
+  }
+
+  const supabase = createClient();
+  const { error, data } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: callbackURL
+    }
+  });
+
+  if (error) {
+    redirectPath = getErrorRedirect(
+      '/signin/signup',
+      'Sign up failed.',
+      error.message
+    );
+  } else if (data.session) { // imédiatement connecté
+    redirectPath = getStatusRedirect('/', 'Success!', 'Vous êtes maintenant connecté(e).');
+
+
+   //=====================================================
+
+   let resend = new Resend(process.env.RESEND_API_KEY);
+
+   // Envoi d'un email lors de la visite de la page
+   try {
+     await resend.emails.send({
+
+       from: 'Compta-Training <onboarding@resend.dev>',
+       to: ['armen.etarian@gmail.com'],
+       subject: 'Bienvenue sur Compta-Training',
+       // react: "🔥 Bienvenue sur Compta-Training !",
+       react: 'Merci de votre inscription', // Utilisation du template React
+     });
+ 
+     console.log('🟩 Email envoyé avec succès');
+   } catch (error) {
+     console.error('Erreur lors de l\'envoi de l\'email :', error);
+   }
+
+
+  //=====================================================
 
 
 

@@ -129,7 +129,7 @@ export async function POST(req: Request) {
         to: ['armen.etarian@gmail.com'],
         subject: '🏆 Compta-Training Premium',
         // react: "🔥 Bienvenue sur Compta-Training !",
-        react: 'Félicitation ! vous êtes maintenant un menbre premium', // Utilisation du template React
+        react: 'Félicitation ! vous êtes maintenant un membre premium', // Utilisation du template React
       });
   
       console.log('🟩 Email Premium envoyé avec succès');
