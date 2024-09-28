@@ -172,7 +172,7 @@ export async function signUp(formData: FormData) {
   const password = String(formData.get('password')).trim();
   let redirectPath: string;
 
-  if (!isValidEmail(email)) {
+  if (!isValidEmail(email)) { //verif du format 
     redirectPath = getErrorRedirect(
       '/signin/signup',
       'Invalid email address.',
@@ -195,8 +195,17 @@ export async function signUp(formData: FormData) {
       'Sign up failed.',
       error.message
     );
-  } else if (data.session) {
+  } else if (data.session) { // imédiatement connecté
     redirectPath = getStatusRedirect('/', 'Success!', 'You are now signed in.');
+
+
+   //=====================================================
+    console.log("<> 1 Nouvel Utilisateur = "+data.session )
+
+   //=====================================================
+
+
+
   } else if (
     data.user &&
     data.user.identities &&

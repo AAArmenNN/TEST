@@ -53,9 +53,9 @@ export async function POST(req: Request) {
   }
 
   if (relevantEvents.has(event.type)) {
-    try {    console.log("Try")
+    try { 
       console.log('Received event:', event);
-      console.log('Webhook event:', req.body);
+      //console.log('Webhook event:', req.body);
 
 
       console.log("event.type = "+event.type)
