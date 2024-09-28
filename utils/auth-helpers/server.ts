@@ -6,6 +6,9 @@ import { redirect } from 'next/navigation';
 import { getURL, getErrorRedirect, getStatusRedirect } from 'utils/helpers';
 import { getAuthTypes } from 'utils/auth-helpers/settings';
 
+import { Resend } from 'resend';
+
+
 function isValidEmail(email: string) {
   var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   return regex.test(email);
@@ -201,6 +204,26 @@ export async function signUp(formData: FormData) {
 
    //=====================================================
     console.log("<> 1 Nouvel Utilisateur = "+data.session )
+
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    // Envoi d'un email lors de la visite de la page
+    try {
+      await resend.emails.send({
+
+        from: 'Compta-Training <onboarding@resend.dev>',
+        to: ['armen.etarian@gmail.com'],
+        subject: 'Bienvenue sur Compta-Training',
+        // react: "🔥 Bienvenue sur Compta-Training !",
+        react: 'Merci de votre inscription', // Utilisation du template React
+      });
+  
+      console.log('🟩 Email envoyé avec succès');
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi de l\'email :', error);
+    }
+
 
    //=====================================================
 
