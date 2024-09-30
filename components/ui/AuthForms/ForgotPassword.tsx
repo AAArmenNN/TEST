@@ -56,13 +56,13 @@ export default function ForgotPassword({
             loading={isSubmitting}
             disabled={disableButton}
           >
-            Send Email
+            Envoyé l'email
           </Button>
         </div>
       </form>
       <p>
         <Link href="/signin/password_signin" className="font-light text-sm">
-          Sign in with email and password
+          Se connecter avec l'email et le mot de passe
         </Link>
       </p>
       {allowEmail && (
@@ -74,7 +74,7 @@ export default function ForgotPassword({
       )}
       <p>
         <Link href="/signin/signup" className="font-light text-sm">
-          Don't have an account? Sign up
+        Pas encore de compte ? Créer un compte !
         </Link>
       </p>
     </div>

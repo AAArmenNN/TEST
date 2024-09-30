@@ -56,7 +56,7 @@ export default function EmailSignIn({
             loading={isSubmitting}
             disabled={disableButton}
           >
-            Sign in
+            Se connecter
           </Button>
         </div>
       </form>
@@ -64,12 +64,12 @@ export default function EmailSignIn({
         <>
           <p>
             <Link href="/signin/password_signin" className="font-light text-sm">
-              Sign in with email and password
+            Se connecter avec l'email et le mot de passe
             </Link>
           </p>
           <p>
             <Link href="/signin/signup" className="font-light text-sm">
-              Don't have an account? Sign up
+              Pas encore de compte ? Créer un compte !
             </Link>
           </p>
         </>

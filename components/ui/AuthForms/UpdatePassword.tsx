@@ -31,19 +31,19 @@ export default function UpdatePassword({
       >
         <div className="grid gap-2">
           <div className="grid gap-1">
-            <label htmlFor="password">New Password</label>
+            <label htmlFor="password">Nouveau mot de passe</label>
             <input
               id="password"
-              placeholder="Password"
+              placeholder="Mot de passe"
               type="password"
               name="password"
               autoComplete="current-password"
               className="w-full p-3 rounded-md bg-zinc-800"
             />
-            <label htmlFor="passwordConfirm">Confirm New Password</label>
+            <label htmlFor="passwordConfirm">Confirmer le nouveau mot de passe</label>
             <input
               id="passwordConfirm"
-              placeholder="Password"
+              placeholder="Mot de passe"
               type="password"
               name="passwordConfirm"
               autoComplete="current-password"
@@ -56,7 +56,7 @@ export default function UpdatePassword({
             className="mt-1"
             loading={isSubmitting}
           >
-            Update Password
+            Mettre à jour le mot de passe
           </Button>
         </div>
       </form>

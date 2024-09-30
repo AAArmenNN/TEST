@@ -68,7 +68,7 @@ export default function PasswordSignIn({
       </form>
       <p>
         <Link href="/signin/forgot_password" className="font-light text-sm">
-          Forgot your password?
+          Mot de passe oublié ?
         </Link>
       </p>
       {allowEmail && (
@@ -80,7 +80,7 @@ export default function PasswordSignIn({
       )}
       <p>
         <Link href="/signin/signup" className="font-light text-sm">
-          Don't have an account? Sign up
+        Pas encore de compte ? Créer un compte !
         </Link>
       </p>
     </div>

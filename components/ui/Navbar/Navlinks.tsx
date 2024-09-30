@@ -22,14 +22,25 @@ export default function Navlinks({ user }: NavlinksProps) {
           <Logo />
         </Link>
         <nav className="ml-6 space-x-2 lg:block">
+
+
           <Link href="/" className={s.link}>
-            Pricing
+            Tarifs
           </Link>
+
+          <Link href="/exo" className={s.link}>
+            S'entrainer à la comptabilité
+          </Link>
+
+
           {user && (
             <Link href="/account" className={s.link}>
-              Account
+              Compte
             </Link>
           )}
+          
+
+
         </nav>
       </div>
       <div className="flex justify-end space-x-8">
@@ -37,12 +48,12 @@ export default function Navlinks({ user }: NavlinksProps) {
           <form onSubmit={(e) => handleRequest(e, SignOut, router)}>
             <input type="hidden" name="pathName" value={usePathname()} />
             <button type="submit" className={s.link}>
-              Sign out
+              Se deconnecter
             </button>
           </form>
         ) : (
           <Link href="/signin" className={s.link}>
-            Sign In
+            Se connecter
           </Link>
         )}
       </div>
