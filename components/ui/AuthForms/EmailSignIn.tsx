@@ -40,7 +40,7 @@ export default function EmailSignIn({
             <label htmlFor="email">Email</label>
             <input
               id="email"
-              placeholder="name@example.com"
+              placeholder="nom@example.com"
               type="email"
               name="email"
               autoCapitalize="none"

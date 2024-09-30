@@ -21,7 +21,7 @@ export default function Navlinks({ user }: NavlinksProps) {
         <Link href="/" className={s.logo} aria-label="Logo">
           <Logo />
         </Link>
-        <nav className="ml-6 space-x-2 lg:block">
+        <nav className="ml-6 space-x-4 lg:block">
 
 
           <Link href="/" className={s.link}>

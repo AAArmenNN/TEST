@@ -33,7 +33,7 @@ export default async function Account() {
             Compte
           </h1>
           <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
-            We partnered with Stripe for a simplified billing.
+          Nous utilisons Stripe pour une facturation simplifié.
           </p>
         </div>
       </div>

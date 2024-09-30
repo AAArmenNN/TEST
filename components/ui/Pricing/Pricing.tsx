@@ -112,7 +112,7 @@ export default function Pricing({ user, products, subscription }: Props) {
             </h1>
 
             <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
-              Réussiser vos examens en comptabilité.
+              Devenir un expert des écritures comptables !
             </p>
             <div className="relative self-center mt-6 bg-zinc-900 rounded-lg p-0.5 flex sm:mt-8 border border-zinc-800">
               {intervals.includes('month') && (

@@ -46,21 +46,21 @@ export default function CustomerPortalForm({ subscription }: Props) {
 
   return (
     <Card
-      title="Your Plan"
+      title="Votre abonnement"
       description={
         subscription
-          ? `You are currently on the ${subscription?.prices?.products?.name} plan.`
-          : 'You are not currently subscribed to any plan.'
+          ? `Vous êtes actuellement sur ${subscription?.prices?.products?.name}.`
+          : "Vous n'avez actuellement aucun abonnement."
       }
       footer={
         <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-          <p className="pb-4 sm:pb-0">Manage your subscription on Stripe.</p>
+          <p className="pb-4 sm:pb-0">Gérer votre abonnement sur Stripe.</p>
           <Button
             variant="slim"
             onClick={handleStripePortalRequest}
             loading={isSubmitting}
           >
-            Open customer portal
+            Ouvrir le portail client
           </Button>
         </div>
       }
@@ -69,7 +69,7 @@ export default function CustomerPortalForm({ subscription }: Props) {
         {subscription ? (
           `${subscriptionPrice}/${subscription?.prices?.interval}`
         ) : (
-          <Link href="/">Choose your plan</Link>
+          <Link href="/">Choisir le plan</Link>
         )}
       </div>
     </Card>

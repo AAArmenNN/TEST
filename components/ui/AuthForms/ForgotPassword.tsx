@@ -40,7 +40,7 @@ export default function ForgotPassword({
             <label htmlFor="email">Email</label>
             <input
               id="email"
-              placeholder="name@example.com"
+              placeholder="nom@example.com"
               type="email"
               name="email"
               autoCapitalize="none"
@@ -56,7 +56,7 @@ export default function ForgotPassword({
             loading={isSubmitting}
             disabled={disableButton}
           >
-            Envoyé l'email
+            Envoyer l'email
           </Button>
         </div>
       </form>

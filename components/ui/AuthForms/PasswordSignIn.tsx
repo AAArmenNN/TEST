@@ -46,10 +46,10 @@ export default function PasswordSignIn({
               autoCorrect="off"
               className="w-full p-3 rounded-md bg-zinc-800"
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Mot de passe</label>
             <input
               id="password"
-              placeholder="Password"
+              placeholder="Mot de passe"
               type="password"
               name="password"
               autoComplete="current-password"
@@ -62,7 +62,7 @@ export default function PasswordSignIn({
             className="mt-1"
             loading={isSubmitting}
           >
-            Sign in
+            Se connecter
           </Button>
         </div>
       </form>

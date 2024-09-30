@@ -36,7 +36,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
             <label htmlFor="email">Email</label>
             <input
               id="email"
-              placeholder="name@example.com"
+              placeholder="nom@example.com"
               type="email"
               name="email"
               autoCapitalize="none"
