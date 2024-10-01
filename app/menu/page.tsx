@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 
-import Styles from '../../Styles/menu.module.css';
+import Styles from '../../styles/menu.module.css';
 
 
 export default function menu() {
