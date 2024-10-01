@@ -104,14 +104,14 @@ export default function Pricing({ user, products, subscription }: Props) {
     );
   } else {
     return (
-      <section className="bg-black">
+      <section className="bg-orangeclair">
         <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
           <div className="sm:flex sm:flex-col sm:align-center">
-            <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
+            <h1 className="text-4xl font-extrabold text-zinc-700 sm:text-center sm:text-6xl">
               Choisir l'abonnement 
             </h1>
 
-            <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
+            <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-600 sm:text-center sm:text-2xl">
               Devenir un expert des écritures comptables !
             </p>
             <div className="relative self-center mt-6 bg-zinc-900 rounded-lg p-0.5 flex sm:mt-8 border border-zinc-800">
@@ -187,7 +187,7 @@ export default function Pricing({ user, products, subscription }: Props) {
                       type="button"
                       loading={priceIdLoading === price.id}
                       onClick={() => handleStripeCheckout(price)}
-                      className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900"
+                      className="block w-full py-2 mt-8 text-sm font-semibold text-center text-black rounded-md hover:bg-zinc-800"
                     >
                       {subscription ? 'Gérer' : "S'abonner"}
                     </Button>

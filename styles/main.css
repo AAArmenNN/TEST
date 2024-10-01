@@ -24,6 +24,7 @@ html {
 
 html,
 body {
+  background-color: aqua;
   font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue',
     'Helvetica', sans-serif;
   text-rendering: optimizeLegibility;
