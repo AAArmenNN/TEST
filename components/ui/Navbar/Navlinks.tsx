@@ -28,7 +28,7 @@ export default function Navlinks({ user }: NavlinksProps) {
             Tarifs
           </Link>
 
-          <Link href="/exo" className={s.link}>
+          <Link href="/menu" className={s.link}>
             S'entrainer à la comptabilité
           </Link>
 

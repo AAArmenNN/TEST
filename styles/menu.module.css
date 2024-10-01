@@ -1,10 +1,180 @@
-.main {
+/* Styles pour la section et la table */
+.quoi {
+  /* text-decoration: line-through; */
 
-background-color: blueviolet;
+  background-color: #fae4bc;
+  min-width: 500px;
+  width: 25%;
+  height: 45px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 16px;
+  /* Bords arrondis */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  /* Ombre portée */
+  padding-top: 22px;
+  /* Espacement interne */
+  text-align: center;
+  letter-spacing: 1.1px;
+  font-weight: bold;
+  /* Gras */
+  font-size: 19px;
+  /* Taille de la police */
+
+  font-family: 'Arial', sans-serif;
+  /* Police de caractères */
+
+  color: #000000;
+  align-items: center;
+  /* Centre verticalement les éléments */
+  border: 3px rgb(146, 22, 22);
+}
+
+
+
+.blockTAB {
+  width: 90%;
+  display: flex;
+  gap: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
 
 }
 
-.blockTAB {
-    background-color: rgb(255, 255, 255);
-    color: rgb(255, 0, 0);
-      }
+@media (max-width: 1400px) {
+  .blockTAB {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .blockTAB table {
+    max-width: none;
+    /* Enlève la limite de largeur */
+    width: 90%;
+    /* Prend 90% de la largeur du conteneur parent */
+  }
+}
+
+
+
+.menu {
+  flex-direction: row;
+  justify-content: center;
+  /* Aligne les éléments avec de l'espace entre eux */
+  gap: 70px;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(255, 255, 255);
+  /* background-color: rgba(232, 232, 232, 0.316); */
+  border-radius: 16px;
+  /* Bords arrondis */
+}
+
+:global(table) {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  /* Ombre portée */
+
+
+}
+
+:global(th) {
+  font-weight: bold;
+  /* Gras */
+  font-size: 21px;
+  /* Taille de la police */
+  color: #ffffff;
+  /* background-color: #2B798B; */
+  background-color: #000000;
+
+  border-radius: 16px;
+  /* Bords arrondis */
+  font-family: 'Arial', sans-serif;
+  /* Police de caractères */
+  letter-spacing: 2px;
+
+  /* background-color: #fae4bc;
+  color: #1a012d;
+
+  border: 2px solid #1a012d; */
+}
+
+:global(td) {
+  padding: 17px;
+  text-align: left;
+  background-color: rgba(238, 245, 250, 0);
+  /* color: #e0dada; */
+  border-radius: 16px;
+  text-decoration: dashed underline overline;
+  text-decoration: line-through black;
+
+
+}
+
+/* Hide the default checkbox */
+.custom-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+/* Create a custom checkbox */
+.custom-checkbox {
+  display: inline-block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 18px;
+}
+
+/* Checkmark (the box) */
+.custom-checkbox .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  /* background-color: #ffffff; */
+  background-color: #eee;
+
+  border-radius: 9px;
+  transition: background-color 0.3s;
+}
+
+/* On mouse-over, add a grey background color */
+.custom-checkbox:hover .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.custom-checkbox input:checked+.checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.custom-checkbox .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.custom-checkbox input:checked+.checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.custom-checkbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 11px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+
