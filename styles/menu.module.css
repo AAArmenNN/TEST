@@ -67,20 +67,15 @@
   background-color: rgb(255, 255, 255);
   /* background-color: rgba(232, 232, 232, 0.316); */
   border-radius: 16px;
+  border-collapse: collapse;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
   /* Bords arrondis */
 }
 
 
 
 
-:global(table) {
-  width: 100%;
-  border-collapse: collapse;
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
-  /* Ombre portée */
 
-
-}
 
 :global(th) {
   font-weight: bold;
