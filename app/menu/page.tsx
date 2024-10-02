@@ -18,7 +18,7 @@ export default function menu() {
 
 
 
-
+            <br />
             <h2 id="quoi" className={Styles.quoi}>Sélectionner les thèmes à réviser</h2>
 
             <br />
@@ -26,43 +26,132 @@ export default function menu() {
 
             <div className={Styles.blockTAB}>
 
-            <table id="UE9" className={Styles.menu}>
-            <tbody>
-                <tr>
-                    <th style={{ height: '80px' }}>
-                        <label className={Styles.customCheckbox}>
-                            <input type="checkbox" id="AselectAll" className={Styles.checkboxSelectAll} value="A0" />
-                            <span className={Styles.checkmark}></span>
-                            Comptabilité UE9
-                        </label>
-                    </th>
-                </tr>
-                {[
-                    "L'achat et la vente de biens en France",
-                    "L'achat et la vente de services en France",
-                    "L'achat et la vente de biens hors de France",
-                    "L'achat et la vente de services hors de France",
-                    "Amortissements",
-                    "Dépréciations",
-                    "Provisions",
-                    "Opération de change",
-                    "PCA CCA",
-                    "Passage exercice à une autre",
-                    "RRR escompte",
-                    "Subventions"
-                ].map((item, index) => (
-                    <tr key={index}>
-                        <td>
-                            <label className={Styles.customCheckbox}>
-                                <input type="checkbox" className={Styles.CBA} value={index + 1} />
-                                <span className={Styles.checkmark}></span>
-                                {item}
-                            </label>
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+                <table id="UE9" className={Styles.menu}>
+                    <tbody>
+                        <tr>
+                            <th style={{ height: '80px' }}>
+
+
+
+                                <label className={Styles.customCheckbox}>
+                                    <input type="checkbox" id="AselectAll" value="A0" />
+                                    <span className={Styles.checkmark}></span>
+                                    Comptabilité UE9
+                                </label> 
+                                {/* checkboxSelectAll */}
+
+                            </th>
+                        </tr>
+                        {[
+                            "L'achat et la vente de biens en France",
+                            "L'achat et la vente de services en France",
+                            "L'achat et la vente de biens hors de France",
+                            "L'achat et la vente de services hors de France",
+                            "Amortissements",
+                            "Dépréciations",
+                            "Provisions",
+                            "Opération de change",
+                            "PCA CCA",
+                            "Passage exercice à une autre",
+                            "RRR escompte",
+                            "Subventions"
+                        ].map((item, index) => (
+                            <tr key={index}>
+                                <td>
+                                    <label className={Styles.customCheckbox}>
+                                        <input type="checkbox" className={Styles.CBA} value={index + 1} />
+                                        <span className={Styles.checkmark}></span>
+                                        {item}
+                                    </label>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <table id="UE9" className={Styles.menu}>
+                    <tbody>
+                        <tr>
+                            <th style={{ height: '80px' }}>
+
+
+
+                                <label className={Styles.customCheckbox}>
+                                    <input type="checkbox" id="BselectAll" value="A0" />
+                                    <span className={Styles.checkmark}></span>
+                                    Comptabilité Approfondie UE10
+                                </label> 
+                                {/* checkboxSelectAll */}
+
+                            </th>
+                        </tr>
+                        {[
+                            "L'achat et la vente de biens en France",
+                            "L'achat et la vente de services en France",
+                            "L'achat et la vente de biens hors de France",
+                            "L'achat et la vente de services hors de France",
+                            "Amortissements",
+                            "Dépréciations",
+                            "Provisions",
+                            "Opération de change",
+                            "PCA CCA",
+                            "Passage exercice à une autre",
+                            "RRR escompte",
+                            "Subventions"
+                        ].map((item, index) => (
+                            <tr key={index}>
+                                <td>
+                                    <label className={Styles.customCheckbox}>
+                                        <input type="checkbox" className={Styles.CBB} value={index + 1} />
+                                        <span className={Styles.checkmark}></span>
+                                        {item}
+                                    </label>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <table id="UE9" className={Styles.menu}>
+                    <tbody>
+                        <tr>
+                            <th style={{ height: '80px' }}>
+
+
+
+                                <label className={Styles.customCheckbox}>
+                                    <input type="checkbox" id="CselectAll" value="A0" />
+                                    <span className={Styles.checkmark}></span>
+                                    Comptabilité & Audit UE4
+                                </label> 
+                                {/* checkboxSelectAll */}
+
+                            </th>
+                        </tr>
+                        {[
+                            "L'achat et la vente de biens en France",
+                            "L'achat et la vente de services en France",
+                            "L'achat et la vente de biens hors de France",
+                            "L'achat et la vente de services hors de France",
+                            "Amortissements",
+                            "Dépréciations",
+                            "Provisions",
+                            "Opération de change",
+                            "PCA CCA",
+                            "Passage exercice à une autre",
+                            "RRR escompte",
+                            "Subventions"
+                        ].map((item, index) => (
+                            <tr key={index}>
+                                <td>
+                                    <label className={Styles.customCheckbox}>
+                                        <input type="checkbox" className={Styles.CBC} value={index + 1} />
+                                        <span className={Styles.checkmark}></span>
+                                        {item}
+                                    </label>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
 
 
 
@@ -72,7 +161,6 @@ export default function menu() {
 
 
 
-                
 
 
             </div>

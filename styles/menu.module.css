@@ -2,10 +2,10 @@
 .quoi {
   /* text-decoration: line-through; */
 
-  background-color: #fae4bc;
+  background-color: #fbf3e4;
   min-width: 500px;
   width: 25%;
-  height: 45px;
+  height: 70px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -32,15 +32,12 @@
 }
 
 
-
 .blockTAB {
   width: 90%;
   display: flex;
   gap: 50px;
   margin-left: auto;
   margin-right: auto;
-  flex-direction: column;
-
 }
 
 @media (max-width: 1400px) {
@@ -50,12 +47,12 @@
   }
 
   .blockTAB table {
-    max-width: none;
-    /* Enlève la limite de largeur */
-    width: 90%;
-    /* Prend 90% de la largeur du conteneur parent */
+    max-width: none; /* Enlève la limite de largeur */
+    width: 90%; /* Prend 90% de la largeur du conteneur parent */
   }
 }
+
+
 
 
 
@@ -72,6 +69,9 @@
   border-radius: 16px;
   /* Bords arrondis */
 }
+
+
+
 
 :global(table) {
   width: 100%;
@@ -107,21 +107,25 @@
   padding: 17px;
   text-align: left;
   background-color: rgba(238, 245, 250, 0);
+  color: #000000;
+
   /* color: #e0dada; */
   border-radius: 16px;
   text-decoration: dashed underline overline;
   text-decoration: line-through black;
-
-
+  font-family: 'Arial', sans-serif;
 }
 
-/* Hide the default checkbox */
-.custom-checkbox input[type="checkbox"] {
+
+
+
+/* Cache la case à cocher native */
+.customCheckbox input[type="checkbox"] {
   display: none;
 }
 
-/* Create a custom checkbox */
-.custom-checkbox {
+/* Création de la case à cocher personnalisée */
+.customCheckbox {
   display: inline-block;
   position: relative;
   padding-left: 35px;
@@ -130,51 +134,51 @@
   font-size: 18px;
 }
 
-/* Checkmark (the box) */
-.custom-checkbox .checkmark {
+/* La boîte (checkmark) */
+.checkmark {
   position: absolute;
   top: 0;
   left: 0;
   height: 25px;
   width: 25px;
-  /* background-color: #ffffff; */
   background-color: #eee;
-
   border-radius: 9px;
   transition: background-color 0.3s;
 }
 
-/* On mouse-over, add a grey background color */
-.custom-checkbox:hover .checkmark {
+/* Au survol, on ajoute une couleur de fond grise */
+.customCheckbox:hover .checkmark {
   background-color: #ccc;
 }
 
-/* When the checkbox is checked, add a blue background */
-.custom-checkbox input:checked+.checkmark {
+/* Lorsque la case est cochée, on change la couleur de fond en bleu */
+.customCheckbox input:checked + .checkmark {
   background-color: #2196F3;
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
-.custom-checkbox .checkmark:after {
+/* Crée l'indicateur de coche (caché quand non coché) */
+.checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Show the checkmark when checked */
-.custom-checkbox input:checked+.checkmark:after {
+/* Affiche la coche lorsque la case est cochée */
+.customCheckbox input:checked + .checkmark:after {
   display: block;
 }
 
-/* Style the checkmark/indicator */
-.custom-checkbox .checkmark:after {
+/* Style pour l'indicateur de coche */
+.checkmark:after {
   left: 9px;
   top: 5px;
-  width: 5px;
-  height: 11px;
-  border: solid white;
+  width: 8px;
+  height: 13px;
+  border: solid rgb(255, 255, 255);
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
 }
+
+
 
 

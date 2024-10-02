@@ -1,5 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { cache } from 'react';
+console.log("queries")
 
 export const getUser = cache(async (supabase: SupabaseClient) => {
   const {
