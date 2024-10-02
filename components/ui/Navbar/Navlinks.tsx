@@ -29,7 +29,7 @@ export default function Navlinks({ user }: NavlinksProps) {
           </Link>
 
           <Link href="/menu" className={s.link}>
-            S'entrainer à la comptabilité
+            Comptabilité
           </Link>
 
 

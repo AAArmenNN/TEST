@@ -37,7 +37,7 @@ export default function menu() {
                                     <input type="checkbox" id="AselectAll" value="A0" />
                                     <span className={Styles.checkmark}></span>
                                     Comptabilité UE9
-                                </label> 
+                                </label>
                                 {/* checkboxSelectAll */}
 
                             </th>
@@ -79,7 +79,7 @@ export default function menu() {
                                     <input type="checkbox" id="BselectAll" value="A0" />
                                     <span className={Styles.checkmark}></span>
                                     Comptabilité Approfondie UE10
-                                </label> 
+                                </label>
                                 {/* checkboxSelectAll */}
 
                             </th>
@@ -121,7 +121,7 @@ export default function menu() {
                                     <input type="checkbox" id="CselectAll" value="A0" />
                                     <span className={Styles.checkmark}></span>
                                     Comptabilité & Audit UE4
-                                </label> 
+                                </label>
                                 {/* checkboxSelectAll */}
 
                             </th>
@@ -152,18 +152,50 @@ export default function menu() {
                         ))}
                     </tbody>
                 </table>
-
-
-
-
-
-
-
-
-
-
-
             </div>
+
+            <br />
+            <br />
+            <br />
+
+
+            <div className={Styles.bas} id="bas">
+                <div className={Styles.groupLabel}>
+                    <div className={Styles.label} id="aide">
+                        <h3>Numéro de compte pré-remplis (aide)</h3>
+                        <button className={Styles.buttonIndex} id="BtnOUI" >
+                            OUI
+                        </button>
+                        <button className={Styles.buttonIndex} id="BtnNON" >
+                            NON
+                        </button>
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <div className={Styles.label} id="nboperation">
+                        <h3>Nombre d’opérations :</h3>
+                        <button className={Styles.buttonIndex} id="Btn10" >
+                            3
+                        </button>
+                        <button className={Styles.buttonIndex} id="Btn20" >
+                            20
+                        </button>
+                        <button className={Styles.buttonIndex} id="Btn30" >
+                            30
+                        </button>
+                    </div>
+                </div>
+
+                <button className={Styles.buttonStart} id="Btncommencer" >
+                    Commencer 🔥
+                </button>
+            </div>
+
+
+            <br />
+            <br />
 
 
 
