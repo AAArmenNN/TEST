@@ -4,8 +4,13 @@ import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import Styles from '../../styles/exo.module.css';
 
+// Définir un type pour les données retournées par l'API
+interface ApiResponse {
+  message: string;
+}
+
 export default function Exo() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<ApiResponse | null>(null);
 
   // Appel à l'API lors du montage du composant
   useEffect(() => {
@@ -58,6 +63,7 @@ export default function Exo() {
 
 
         {/* Question */}
+
 
         {data ? (
           <p className={Styles.styleQuestion} id="ask">{data.message}</p>

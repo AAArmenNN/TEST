@@ -69,9 +69,9 @@ export default function compta() {
   };
 
   // Fonction pour gérer la sélection/désélection de toutes les cases à cocher
-  const handleSelectAll = (selectAllId, classCB) => {
-    const selectAllCheckbox = document.getElementById(selectAllId);
-    const categoryCheckboxes = document.querySelectorAll(`.${classCB}`);
+  const handleSelectAll = (selectAllId: string, classCB: string) => {
+    const selectAllCheckbox = document.getElementById(selectAllId) as HTMLInputElement | null;
+  const categoryCheckboxes = document.querySelectorAll(`.${classCB}`) as NodeListOf<HTMLInputElement>;
 
     if (selectAllCheckbox) {
       selectAllCheckbox.addEventListener('change', () => {
