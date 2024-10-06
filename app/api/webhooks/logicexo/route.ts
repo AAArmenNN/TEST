@@ -22,9 +22,11 @@ let paterne = 0;
 
 let CompteurExo = 0;
 
-function randomNum(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min; // You can remove the Math.floor if you don't want it to be an integer
-}
+
+function randomNum(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+  
 function OPN() {
 
   //________________________________________________________________________________________________________________
@@ -342,7 +344,7 @@ function OPN() {
       let TVA20 = (prixHT) / 5;
       let TT = prixHT + TVA20;
 
-      prixHTfinal = TT * 5
+      let prixHTfinal = TT * 5
 
       énoncé = "Le 7 mai 2023 : réception d'un virement de " + TT + " € TTC à titre d'acompte suite à l'acceptation d'un devis par un client<br><br>Le 17 mai 2023 : Facture finale de " + prixHTfinal + " € HT de marchandises avec TVA à 20%";
 
@@ -577,7 +579,7 @@ function OPN() {
 
       énoncé = "A l'inventaire N, passage d'une subvention d'investissement de " + prixHT + " € au compte de résultat avec un étalement sur 5 ans .";
 
-      TT = prixHT / 5
+      let TT = prixHT / 5
       MainNomOP[0] = "Inventaire : "
       MainCompte[0] = ["139000", "777000"];
       MainDébit[0] = [TT, ""];
@@ -601,7 +603,7 @@ function OPN() {
 
       énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour l'achat d'un terrain (donc non amortissable).<br>Il existe une clause d'inaliénabilité de 5 ans";
 
-      TT = prixHT / 5
+      let  TT = prixHT / 5
       MainNomOP[0] = "Inventaire : "
       MainCompte[0] = ["139000", "777000"];
       MainDébit[0] = [TT, ""];
@@ -625,7 +627,7 @@ function OPN() {
 
       énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour l'achat d'un terrain (donc non amortissable).<br>Il n'existe aucune clause d'inaliénabilité";
 
-      TT = prixHT / 10
+      let TT = prixHT / 10
       MainNomOP[0] = "Inventaire : "
       MainCompte[0] = ["139000", "777000"];
       MainDébit[0] = [TT, ""];
@@ -649,7 +651,7 @@ function OPN() {
 
       énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour l'achat d'un terrain (donc non amortissable).<br>Il n'existe aucune clause d'inaliénabilité";
 
-      TT = prixHT / 10
+      let TT = prixHT / 10
       MainNomOP[0] = "Inventaire : "
       MainCompte[0] = ["139000", "777000"];
       MainDébit[0] = [TT, ""];
@@ -673,7 +675,7 @@ function OPN() {
 
       énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour d'un camion.<br>Ce camion a été acheté pour " + prixHT * 2 + " €, est mis en service le 1er juillet N et amorti sur une durée de 10 ans";
 
-      TT = prixHT / 10 / 2
+      let TT = prixHT / 10 / 2
       MainNomOP[0] = "Inventaire N : "
       MainCompte[0] = ["139000", "777000"];
       MainDébit[0] = [TT, ""];
@@ -697,7 +699,7 @@ function OPN() {
 
       énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour un camion.<br>Ce camion a été acheté pour " + prixHT * 2 + " € , mis en service le 1er juillet N-1 et amorti sur une durée de 10 ans";
 
-      TT = prixHT / 10
+      let TT = prixHT / 10
       MainNomOP[0] = "Inventaire N : "
       MainCompte[0] = ["139000", "777000"];
       MainDébit[0] = [TT, ""];
@@ -754,7 +756,7 @@ function OPN() {
 
       let prixHT = randomNum(1, 10);
       prixHT = prixHT * 1000
-      prixHT2 = Math.round(prixHT * 1.1);
+      let prixHT2 = Math.round(prixHT * 1.1);
 
       MainNomOP[0] = "Inventaire N : "
       MainCompte[0] = ["687500", "151100"];
