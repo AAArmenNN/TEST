@@ -1,0 +1,383 @@
+/* Styles pour la section et la table */
+
+
+
+.quoi {
+  /* text-decoration: line-through; */
+
+  background-color: #fbf3e4;
+  min-width: 91px;
+  width: 25%;
+  height: 70px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 16px;
+  /* Bords arrondis */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  /* Ombre portée */
+  padding-top: 22px;
+  /* Espacement interne */
+  text-align: center;
+  letter-spacing: 1.1px;
+  font-weight: bold;
+  /* Gras */
+  font-size: 19px;
+  /* Taille de la police */
+
+  font-family: 'Arial', sans-serif;
+  /* Police de caractères */
+
+  color: #000000;
+  align-items: center;
+  /* Centre verticalement les éléments */
+  border: 3px rgb(146, 22, 22);
+}
+
+
+.blockTAB {
+  width: 90%;
+  display: flex;
+  gap: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 1400px) {
+  .blockTAB {
+    flex-direction: column;
+    align-items: center;
+  }
+  .quoi {
+    font-size: 13px;
+    width: 70%;
+    height: 60px;
+    margin-top: 100px;
+
+  }
+
+
+  .blockTAB table {
+    max-width: none; /* Enlève la limite de largeur */
+    width: 90%; /* Prend 90% de la largeur du conteneur parent */
+  }
+}
+
+
+
+
+
+.menu {
+  flex-direction: row;
+  justify-content: center;
+  /* Aligne les éléments avec de l'espace entre eux */
+  gap: 70px;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(255, 255, 255);
+  /* background-color: rgba(232, 232, 232, 0.316); */
+  border-radius: 16px;
+  border-collapse: collapse;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  /* Bords arrondis */
+}
+
+
+
+
+
+
+.blockTAB :global(th) {
+  font-weight: bold;
+  /* Gras */
+  font-size: 21px;
+  /* Taille de la police */
+  color: #ffffff;
+  /* background-color: #2B798B; */
+  background-color: #000000;
+
+  border-radius: 16px;
+  /* Bords arrondis */
+  font-family: 'Arial', sans-serif;
+  /* Police de caractères */
+  letter-spacing: 2px;
+
+  /* background-color: #fae4bc;
+  color: #1a012d;
+
+  border: 2px solid #1a012d; */
+}
+.blockTAB :global(td) {
+
+  padding: 17px;
+  text-align: left;
+  background-color: rgba(238, 245, 250, 0);
+  color: #000000;
+
+  /* color: #e0dada; */
+  border-radius: 16px;
+  text-decoration: dashed underline overline;
+  text-decoration: line-through black;
+  font-family: 'Arial', sans-serif;
+}
+
+
+
+
+/* Cache la case à cocher native */
+.customCheckbox input[type="checkbox"] {
+  display: none;
+}
+
+/* Création de la case à cocher personnalisée */
+.customCheckbox {
+  display: inline-block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 18px;
+}
+
+/* La boîte (checkmark) */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 9px;
+  transition: background-color 0.3s;
+}
+
+/* Au survol, on ajoute une couleur de fond grise */
+.customCheckbox:hover .checkmark {
+  background-color: #ccc;
+}
+
+/* Lorsque la case est cochée, on change la couleur de fond en bleu */
+.customCheckbox input:checked + .checkmark {
+  background-color: #2196F3;
+}
+
+/* Crée l'indicateur de coche (caché quand non coché) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Affiche la coche lorsque la case est cochée */
+.customCheckbox input:checked + .checkmark:after {
+  display: block;
+}
+
+/* Style pour l'indicateur de coche */
+.checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 8px;
+  height: 13px;
+  border: solid rgb(255, 255, 255);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.buttonIndex {
+  background-color: #ffffff;
+  /* Vert */
+  border: none;
+  /* Pas de bordure */
+  color: rgba(9, 85, 85, 0.674);
+  /* Texte blanc */
+  font-weight: bold;
+  /* Gras */
+  padding: 10px 10px;
+  /* Espacement interne */
+  text-align: center;
+  /* Alignement du texte */
+  text-decoration: none;
+  /* Pas de soulignement */
+  display: inline-block;
+  /* Affichage en ligne */
+  font-size: 17px;
+  /* Taille de la police */
+  margin: 4px 2px;
+  /* Marges */
+  cursor: pointer;
+  /* Curseur de la souris */
+  border-radius: 16px;
+  /* Bords arrondis */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  /* Ombre portée */
+  transition: background-color 0.3s ease;
+  /* Transition pour les effets */
+}
+
+/* Effet au survol de la souris */
+.buttonIndex:hover {
+  transform: scale(1.1);
+  background-color: #2196F3;
+  /* Vert encore plus foncé */
+  color: #ffffff;
+}
+
+/* Effet au clic */
+.buttonIndex:active {
+  background-color: #177fd3;
+  /* Vert encore plus foncé */
+}
+
+/* Effet pour les boutons désactivés */
+.buttonIndex:disabled {
+  background-color: #cccccc;
+  /* Gris clair */
+  cursor: not-allowed;
+  /* Curseur non autorisé */
+}
+
+.buttonStart {
+  background-color: #000000;
+  border: none;
+  /* Pas de bordure */
+  color: white;
+  /* Texte blanc */
+  font-weight: bold;
+  /* Gras */
+  padding: 25px 60px;
+  /* Espacement interne */
+  text-align: center;
+  /* Alignement du texte */
+  text-decoration: none;
+  /* Pas de soulignement */
+  display: inline-block;
+  /* Affichage en ligne */
+  font-size: 20px;
+  /* Taille de la police */
+  margin: 4px 2px;
+  /* Marges */
+  cursor: pointer;
+  /* Curseur de la souris */
+  border-radius: 16px;
+  /* Bords arrondis */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  /* Ombre portée */
+  transition: background-color 0.3s ease;
+  /* Transition pour les effets */
+}
+
+.buttonStart:hover {
+  transform: scale(1.05);
+}
+
+
+
+.label {
+  display: flex;
+  justify-content: center;
+  /* Aligne les éléments avec de l'espace entre eux */
+  align-items: center;
+  /* Centre verticalement les éléments */
+  gap: 10px;
+  border-radius: 16px;
+  /* Bords arrondis */
+  width: 100%;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  /* Ombre portée */
+  padding: 16px;
+  font-family: 'Arial', sans-serif;
+  /* Police de caractères */
+  color: #000000;
+  background-color: #fbf3e4;
+  font-weight: bold;
+  font-size: 17px;
+
+
+}
+
+
+
+
+.bas {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  /* Aligne les éléments avec de l'espace entre eux */
+  gap: 150px;
+  border-radius: 16px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.groupLabel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  /* Espace entre les deux labels */
+}
+
+/* Media Query pour petits écrans */
+@media (max-width: 1400px) {
+  .groupLabel {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    /* Espace réduit entre les divs en colonne */
+  }
+
+  .label {
+    width: 100%;
+    /* Prend toute la largeur disponible */
+    text-align: center;
+    /* Centre le contenu du label */
+  }
+
+  .buttonStart {
+    margin-top: 20px;
+    /* Ajoute un espace entre les labels et le bouton */
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .bas {
+    flex-direction: column;
+    align-items: center;
+    gap: 45px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.btnActiv {
+  background-color: #2196F3;
+  transform: scale(1.1);
+  color: #ffffff;
+}
+
+.btnDesactiv {
+  background-color: rgb(116, 114, 118);
+}
