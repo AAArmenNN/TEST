@@ -15,7 +15,7 @@ let MainNomOP = [];
 let MainCompte = [];
 let MainDébit = [];
 let MainCrédit = [];
-let MainDate = [];
+let MainDate: string[] = [];
 
 let énoncé ="vide"
 let paterne = 0;
