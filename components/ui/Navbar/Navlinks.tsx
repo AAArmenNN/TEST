@@ -28,7 +28,7 @@ export default function Navlinks({ user }: NavlinksProps) {
             Tarifs
           </Link>
 
-          <Link href="/menu" className={s.link}>
+          <Link href="/compta" className={s.link}>
             Comptabilité
           </Link>
 
