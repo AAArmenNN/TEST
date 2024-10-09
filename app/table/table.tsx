@@ -37,7 +37,11 @@ const MakeTable = ({ lieutable, tableId, tableClass, numRows }: { lieutable: str
   }, [tableId, MainCompte]); // Réagir lorsque MainCompte change
 */
 
-makeTableEditable(tableId);
+useEffect(() => {
+  if (typeof window !== "undefined") {
+    makeTableEditable(tableId);
+  }
+}, [tableId]);
 
   return (
     <>
