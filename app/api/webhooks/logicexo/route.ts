@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 
 //import { OPN } from '../codejs/OP';
+//import ExoTable from '../../../table/table';
+
 
 
 
@@ -11,10 +13,10 @@ let scoreUser = 0;
 let ReponseDébit2 = []; // 2eme tableau
 let ReponseCrédit2 = []; // 2eme tableau
 
-let MainNomOP = [];
-let MainCompte = [];
-let MainDébit = [];
-let MainCrédit = [];
+let MainNomOP: string[] = [];
+let MainCompte: any[] = [];
+let MainDébit: any[] = [];
+let MainCrédit: any[]= [];
 let MainDate: string[] = [];
 
 let énoncé ="vide"
@@ -34,7 +36,7 @@ function OPN() {
   //console.log("opSelectionnées longeur = "+operations.length);
 
 
-  let idOp = 1 //randomNum(0, operations.length); // type d'opération
+  let idOp = 12 //randomNum(0, operations.length); // type d'opération
   énoncé ="HELLO"
 
   //console.log("ID de la liste 'operations' = "+idOp); //c'est ok
@@ -876,6 +878,7 @@ function OPN() {
 
 }
 OPN()
+//ExoTable()
 
 //-------------------------------------------------------------------------------
 
@@ -892,7 +895,13 @@ OPN()
 
 export async function GET(request: NextRequest) {
   // Logique de récupération des données
-  const data = { message: énoncé };
+  const data = { 
+    message: énoncé , 
+    MainNomOP: MainNomOP, 
+    MainCompte: MainCompte, 
+    MainDébit: MainDébit, 
+    MainCrédit: MainCrédit, 
+    paterne: paterne};
 
   // Renvoie la réponse JSON
   return NextResponse.json(data);

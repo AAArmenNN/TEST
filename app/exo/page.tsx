@@ -1,12 +1,20 @@
 "use client"; // Ajoute cette ligne en haut pour indiquer que c'est un composant client
 
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, {  useState, useEffect } from 'react'; //createContext, useContext,
 import Styles from '../../styles/exo.module.css';
+import MakeTable from '../table/table';
+import MakeTableCorrige from '../table/tablecorrige';
+
 
 // Définir un type pour les données retournées par l'API
 interface ApiResponse {
   message: string;
+  MainNomOP: string;
+  MainCompte: any;
+  MainDébit: any;
+  MainCrédit: any;
+  paterne: number;
 }
 
 export default function Exo() {
@@ -21,6 +29,54 @@ export default function Exo() {
       .catch(error => console.error('Erreur lors de l\'appel à l\'API', error));
   }, []);
 
+  let MainCompte = data?.MainCompte ?? []; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
+  let paterne = data?.paterne ?? []; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
+  let ComptePreRemplis = 1 ; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
+
+
+
+
+// Fonction pour remplir les comptes dans le tableau
+function AjouteCompteTAB(MainCompte: any, paterne: number, ComptePreRemplis: number) {
+  if (ComptePreRemplis === 1) {
+
+    for (let E:number = 0; E < paterne; E++) { // Ecriture
+
+
+      for (let ligne = 0; ligne < MainCompte[E].length; ligne++) { // le nombre de ligne de l'ecriture
+       // alert("E = "+E+"ligne = "+ligne+ "id = "+`E${E}-y${ligne}-x0`)
+
+          document.getElementById(`E${E}-y${ligne}-x0`)!.textContent = MainCompte[E][ligne];//`E${E}-y${ligne}-x0`;
+          //document.getElementById(`E${E}-y${ligne}-x1`).textContent = trouverDescriptionCompte(MainCompte[E][ligne])
+
+
+
+      }
+  }
+
+
+
+
+
+
+  } else {
+    for (let E = 0; E < paterne; E++) { // Ecriture
+
+      for (let ligne = 0; ligne < MainCompte[E].length; ligne++) { // le nombre de ligne de l'ecriture
+
+          document.getElementById(`E${E}-y${ligne}-x1`)!.textContent = "";//`E${E}-y${ligne}-x0`;
+
+      }
+  }
+  }
+}
+
+
+useEffect(() => {
+  if (data) {
+    AjouteCompteTAB(MainCompte, 3, 1);
+  }
+}, [data]); // Appeler la fonction lorsque les données sont disponibles
 
 
   /*
@@ -42,6 +98,8 @@ export default function Exo() {
     console.log('Passer à l\'exercice suivant');
   };
 */
+
+
 
 
 
@@ -71,18 +129,33 @@ export default function Exo() {
           <p>Enoncé vide...</p>
         )}
 
+        {data ? (
+          <p className={Styles.styleQuestion} id="ask">{data.MainCompte[2]}</p>
+        ) : (
+          <p>MainCompte vide...</p>
+        )}
 
 
         <br />
 
-        {/* Injection des Tableaux énoncé */}
-        <div id="TABvides" className={Styles.TAB}></div> 
+        {/* Injection des Tableaux en fonction de 'paterne'     style={{ marginBottom: '40px' }}*/}
+        <div id="TABvides" className={Styles.TAB}>
 
 
+          {data && Array.from({ length: data.paterne }).map((_, index) => (
+            <div className={Styles.LigneEcriture} >
+              <MakeTable
+                key={index}
+                lieutable={`lieutable-${index}`}
+                tableId={`E${index}`}
+                tableClass={`tableClass-${index}`}
+                numRows={data.MainCompte[index].length}
+              />
+            </div>
 
+          ))}
 
-
-
+        </div>
 
 
 
@@ -103,7 +176,24 @@ export default function Exo() {
         <br />
 
         {/* Tableau corrigé */}
-        <div id="TABcorrigé" className={Styles.TAB}></div>
+        <div id="TABcorrigé" className={Styles.TAB}>
+        {data && Array.from({ length: data.paterne }).map((_, index) => (
+            <div className={Styles.LigneEcriture} >
+              <MakeTableCorrige
+                key={index}
+                lieutable={`lieutable-${index}`}
+                tableId={`C${index}`}
+                tableClass={`tableClass-${index}`}
+                numRows={data.MainCompte[index].length}
+              />
+
+
+            </div>
+
+          ))}
+
+
+        </div>
 
         <br /><br />
 
