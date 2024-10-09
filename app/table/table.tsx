@@ -36,6 +36,9 @@ const MakeTable = ({ lieutable, tableId, tableClass, numRows }: { lieutable: str
     }
   }, [tableId, MainCompte]); // Réagir lorsque MainCompte change
 */
+
+makeTableEditable(tableId);
+
   return (
     <>
       <div>
