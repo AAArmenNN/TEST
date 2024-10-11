@@ -6,7 +6,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 
 
-
 //-------------------------------------------------------------------------------
 let scoreUser = 0;
 
@@ -29,14 +28,14 @@ function randomNum(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min)) + min;
   }
   
-function OPN() {
+export function OPN() {
+
 
   //________________________________________________________________________________________________________________
 
   //console.log("opSelectionnées longeur = "+operations.length);
 
-
-  let idOp = 12 //randomNum(0, operations.length); // type d'opération
+  let idOp = randomNum(5, 15);//randomNum(0, operations.length); // type d'opération
   énoncé ="HELLO"
 
   //console.log("ID de la liste 'operations' = "+idOp); //c'est ok
@@ -256,7 +255,7 @@ function OPN() {
       let TVA20 = (prixHT) / 5;
       let TT = prixHT + TVA20;
 
-      énoncé = "Le 4 mai 2023: réception de la facture pour l'entretien du camion de livraison d'un montant de " + prixHT + " € HT.<br>La facture porte la mention « TVA sur les débits ». Au bas de la facture est mentionné « escompte de 2% si le paiement intervient dans les 8 jours ».<br><br>Le 5 mai 2023 : règlement par virement de la facture du 4 mai 2023 après déduction de l'escompte de 2 %. La facture d'avoir concernant cet escompte est reçue le jour même.";
+      énoncé = "Le 4 mai 2023: réception de la facture pour l'entretien du camion de livraison d'un montant de " + prixHT + " € HT.\nLa facture porte la mention « TVA sur les débits ». Au bas de la facture est mentionné « escompte de 2% si le paiement intervient dans les 8 jours ».\n\nLe 5 mai 2023 : règlement par virement de la facture du 4 mai 2023 après déduction de l'escompte de 2 %. La facture d'avoir concernant cet escompte est reçue le jour même.";
 
       MainNomOP[0] = "Facture"
       MainDate[0] = "04/05";
@@ -898,6 +897,7 @@ export async function GET(request: NextRequest) {
   const data = { 
     message: énoncé , 
     MainNomOP: MainNomOP, 
+    MainDate:MainDate,
     MainCompte: MainCompte, 
     MainDébit: MainDébit, 
     MainCrédit: MainCrédit, 
@@ -906,3 +906,12 @@ export async function GET(request: NextRequest) {
   // Renvoie la réponse JSON
   return NextResponse.json(data);
 }
+
+export async function POST(request: NextRequest) {
+    OPN(); // Génère de nouvelles données côté serveur
+  
+    // Réponse de confirmation que les données ont été mises à jour
+    return NextResponse.json({ status: 'OK', message: 'Nouvelles données générées avec succès.' });
+  }
+
+  

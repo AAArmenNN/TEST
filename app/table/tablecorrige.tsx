@@ -72,7 +72,7 @@ const MakeTableCorrige = ({ lieutable, tableId, tableClass, numRows }: { lieutab
   return (
     <>
     <div>
-      <h3 className={Styles.date}>Date non disponible</h3>
+    <h3 id= {`Date-${tableId}`} className={Styles.date}>Date non disponible</h3>
     </div>
 
     <div id={lieutable}>

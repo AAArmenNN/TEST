@@ -16,22 +16,64 @@
 
 .LigneEcriture {
   display: flex;
-  justify-content: flex-start;
-  /* Aligne les éléments avec de l'espace entre eux */
-  align-items: center;
-  /* Centre verticalement les éléments */
+  justify-content: flex-start; /* Aligne les éléments avec de l'espace entre eux */
+  align-items: center; /* Centre verticalement les éléments */
   gap: 10px;
-  padding: 0px;
-  /* Espacement interne */
-  /* height: 120px; */
+  padding: 0px; /* Espacement interne */
+  margin-bottom: 40px;
+
+}
+.date {
+  color : rgb(8, 54, 54);
+  text-align: center;
+  font-size: 16px; /* Taille de la police */
+  border-radius: 6px; /* Bords arrondis */
+  border: 1.5px solid rgb(8, 54, 54); /* Bordure */
+  width: 200px; /* Largeur maximale */
+  padding: 5px; /* Espacement interne */
+  background-color: rgba(255, 255, 255, 0.685); /* Couleur de fond */
+  box-shadow: 0px 4px 20px 3px #0405042f; /* Ombre portée */
+  margin-right: 8px;
+  margin-left: 280px;
+  letter-spacing: 1px; /* Espacement des lettres */
+  
+}
+
+@media (max-width: 1400px) {
+  .LigneEcriture {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Aligne les éléments avec de l'espace entre eux */
+    align-items: center; /* Centre verticalement les éléments */
+    gap: 10px;
+    padding: 0px; /* Espacement interne */
+    margin-bottom: 40px;
+  
+  }
+  .date {
+    background-color: rgba(255, 255, 255, 0.685); /* Couleur de fond */
+    color : rgb(8, 54, 54);
+    text-align: center;
+    font-size: 16px; /* Taille de la police */
+    border-radius: 6px; /* Bords arrondis */
+    border: 1.5px solid rgb(8, 54, 54); /* Bordure */
+    width: 200px; /* Largeur maximale */
+    padding: 5px; /* Espacement interne */
+    box-shadow: 0px 4px 20px 3px #0405042f; /* Ombre portée */
+    margin-left: auto;
+    letter-spacing: 1px; /* Espacement des lettres */
+    
+  }
+  
 }
 
 
 
 
 
+
 .styleQuestion {
-  color: #040504;
+  color: #050404;
   /* Couleur du texte */
   font-size: 15px;
   /* Taille de la police */
@@ -63,7 +105,7 @@
 
 /* Style par défaut du bouton */
 .customButton {
-  background-color: #4caf4f;
+  background-color: black;
   /* Vert */
   border: none;
   /* Pas de bordure */
@@ -95,13 +137,13 @@
 
 /* Effet au survol de la souris */
 .customButton:hover {
-  background-color: #39843c;
+  background-color: #343434;
   /* Vert plus foncé */
 }
 
 /* Effet au clic */
 .customButton:active {
-  background-color: #29602b;
+  background-color: rgb(113, 113, 113);
   /* Vert encore plus foncé */
 }
 
@@ -134,28 +176,62 @@
 }
 
 
-.LigneEcriture {
-  display: flex;
-  justify-content: flex-start; /* Aligne les éléments avec de l'espace entre eux */
-  align-items: center; /* Centre verticalement les éléments */
-  gap: 10px;
-  padding: 0px; /* Espacement interne */
-  margin-bottom: 40px;
 
+
+
+
+.container {
+  display: flex;
+  justify-content: center; /* Aligne les éléments avec de l'espace entre eux */
+  align-items: center; /* Centre verticalement les éléments */
+  
 }
 
 
-.date {
-  color : rgb(8, 54, 54);
-  text-align: center;
-  font-size: 16px; /* Taille de la police */
-  border-radius: 6px; /* Bords arrondis */
-  border: 1.5px solid rgb(8, 54, 54); /* Bordure */
-  width: 200px; /* Largeur maximale */
-  padding: 5px; /* Espacement interne */
-  background-color: rgba(255, 255, 255, 0.685); /* Couleur de fond */
-  box-shadow: 0px 4px 20px 3px #0405042f; /* Ombre portée */
-  margin-right: 8px;
-  margin-left: 280px;
-  letter-spacing: 1px; /* Espacement des lettres */
+.bon {
+  background-color: rgb(143, 228, 146) !important;
+  color: rgb(0, 0, 0) !important;
+  font-weight: bold;
+}
+
+.faux {
+  background-color: rgb(255, 143, 143) !important;
+  color: rgb(0, 0, 0) !important;
+  font-weight: bold;
+}
+
+
+
+.resultOK {
+  color: #ffffff!important; /* Couleur du texte */
+  font-size: 17px; /* Taille de la police */
+  font-family: 'Arial', sans-serif; /* Police de caractères */
+  font-weight: bold; /* Gras */
+  text-align: center; /* Alignement centré */
+  text-transform: uppercase; /* Transformation du texte en majuscules */
+  letter-spacing: 0px; /* Espacement des lettres */
+  background-color: #489f42; /* Couleur de fond */
+  padding: 15px; /* Espacement interne */
+  border: 2px solid #489f42; /* Bordure */
+  border-radius: 16px; /* Bords arrondis */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Ombre portée */
+  margin: 0px auto; /* Marges avec auto pour centrer */
+  max-width: 80%; /* Largeur maximale */
+}
+
+.resultFAUX {
+  color: #ffffff!important; /* Couleur du texte */
+  font-size: 17px; /* Taille de la police */
+  font-family: 'Arial', sans-serif; /* Police de caractères */
+  font-weight: bold; /* Gras */
+  text-align: center; /* Alignement centré */
+  text-transform: uppercase; /* Transformation du texte en majuscules */
+  letter-spacing: 0px; /* Espacement des lettres */
+  background-color: #e50202; /* Couleur de fond */
+  padding: 15px; /* Espacement interne */
+  border: 2px solid #e50202; /* Bordure */
+  border-radius: 16px; /* Bords arrondis */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Ombre portée */
+  margin: 0px auto; /* Marges avec auto pour centrer */
+  max-width: 80%; /* Largeur maximale */
 }

@@ -4,38 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Styles from '../../styles/exo.module.css';
 
 const MakeTable = ({ lieutable, tableId, tableClass, numRows }: { lieutable: string, tableId: string, tableClass: string, numRows: number }) => {
-  /*
-  const [data, setData] = useState<any>(null); // État pour stocker les données de l'API
-
-  useEffect(() => {
-    // Appel de l'API pour récupérer les données
-    fetch('/api/webhooks/logicexo')
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data); // Stocker les données récupérées dans l'état
-      })
-      .catch((error) => console.error('Erreur lors de l\'appel à l\'API', error));
-  }, []); // Exécuter une seule fois après le premier rendu
-
-  const MainCompte = data?.MainCompte ?? []; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
-// alert(MainCompte[0])
-
-  useEffect(() => {
-    if (MainCompte.length > 0) {
-      console.log("MainCompte valeur: ", MainCompte);
-    } else {
-      console.log("MainCompte n'est pas encore chargé ou est vide.");
-    }
-  }, [MainCompte]); // Exécuter cet effet lorsque MainCompte change
-
-  useEffect(() => {
-    if (MainCompte.length > 0) {
-      // Rendre le tableau éditable après le rendu
-      makeTableEditable(tableId);
-     // AjouteCompteTAB(MainCompte, 3, 1); // Appel de la fonction pour ajouter les comptes
-    }
-  }, [tableId, MainCompte]); // Réagir lorsque MainCompte change
-*/
+  
 
 useEffect(() => {
   if (typeof window !== "undefined") {
@@ -46,7 +15,7 @@ useEffect(() => {
   return (
     <>
       <div>
-        <h3 className={Styles.date}>Date non disponible</h3>
+        <h3 id= {`Date-${tableId}`} className={Styles.date}>Date non disponible</h3>
       </div>
 
       <div id={lieutable}>
@@ -141,32 +110,5 @@ function makeCellEditable(cell: HTMLElement) {
   });
 }
 
-/*
-// Fonction pour remplir les comptes dans le tableau
-function AjouteCompteTAB(MainCompte: any, paterne: number, ComptePreRemplis: number) {
-  if (ComptePreRemplis === 1) {
-
-
-
-    for (let E = 0; E < paterne; E++) {
-      for (let ligne = 0; ligne < MainCompte.length; ligne++) {
-        alert("E = "+E+"ligne = "+ligne+ "id = "+`E${E}-y${ligne}-x0`)
-        document.getElementById(`E${E}-y${ligne}-x0`)!.textContent = "MainCompte[ligne]"; // Remplir numéro de compte
-      }
-    }
-
-
-
-
-
-  } else {
-    for (let E = 0; E < paterne; E++) {
-      for (let ligne = 0; ligne < MainCompte.length; ligne++) {
-        document.getElementById(`E${E}-y${ligne}-x1`)!.textContent = ""; // Vider la cellule
-      }
-    }
-  }
-}
-  */
 
 export default MakeTable;
