@@ -30,7 +30,7 @@ function randomNum(min: number, max: number): number {
 
 
 
-export function OPN() {
+ function OPN() {
 
 
     //________________________________________________________________________________________________________________
