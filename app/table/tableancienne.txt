@@ -1,0 +1,177 @@
+
+"use client"; // Ajoutez cette ligne pour indiquer que ce fichier est un Client Component
+
+import React, { useEffect } from 'react';
+import Styles from '../../styles/exo.module.css';
+
+import { useData } from '../context/DataContext';
+
+const data = useData();
+
+
+let MainCompte:any  =data?.MainCompte
+
+// let MainCompte: any[0][] = [
+//   ["607000", "445660", "401000"]
+// ];
+let paterne : number = 1
+let ComptePreRemplis: number = 1
+
+
+
+// Fonction pour créer un tableau dynamique avec des paramètres
+const createTable = (lieutable: string, tableId: string, tableClass: string, numRows: number) => {
+  // Générer le tableau HTML
+  const rows = numRows;
+  const cols = 4; // 4 colonnes comme spécifié dans l'exemple initial
+
+  return (
+    <table id={tableId}
+      className={tableClass}
+      style={{
+        width: '100%',
+        backgroundColor: 'black',
+        marginLeft: '40px',
+        borderRadius: '4px', // Bordure arrondie pour le tableau
+        overflow: 'hidden', // Pour éviter que les bordures dépassent si elles sont arrondies
+        borderCollapse: 'collapse', // Pour éviter des bordures doubles entre les cellules
+        border: '2px solid black', // Bordure noire autour de chaque cellule
+
+      }}>
+      <thead>
+        <tr style={{ backgroundColor: 'teal' }}>
+          <th style={{
+            width: '120px', border: '2px solid black', // Pour éviter des bordures doubles entre les cellules
+}}>N° de compte</th>
+          <th style={{ minWidth: '300px', border: '2px solid black', }}>libellé</th>
+          <th style={{ width: '100px', border: '2px solid black', }}>débit</th>
+          <th style={{ width: '100px', border: '2px solid black', }}>crédit</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Array.from({ length: rows }).map((_, rowIndex) => (
+          <tr key={rowIndex}>
+            {Array.from({ length: cols }).map((_, colIndex) => (
+              <td
+                key={colIndex}
+                style={{
+                  height: '25px',
+                  backgroundColor: 'white',
+                  letterSpacing: '2px',
+                  textAlign: 'center',
+                  border: '2px solid black', // Bordure noire autour de chaque cellule
+                }}
+                id={${tableId}-y${rowIndex}-x${colIndex}}
+              >
+                {/* Cellule initialement vide */}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+  );
+};
+
+// Fonction pour rendre une cellule modifiable
+function makeTableEditable(tableId: string) {
+  const table = document.getElementById(tableId);
+
+  if (table) {
+    table.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+
+      if (target.tagName === 'TD') {
+        makeCellEditable(target);
+      }
+    });
+  } else {
+    console.error(Table with id "${tableId}" not found.);
+  }
+
+  function makeCellEditable(cell: HTMLElement) {
+    const originalContent = cell.textContent;
+
+    cell.contentEditable = 'true';
+    cell.classList.add('editable'); // à virer ?
+    cell.focus();
+
+    cell.addEventListener('blur', () => {
+      cell.contentEditable = 'false';
+      cell.classList.remove('editable'); // à virer ?
+    }, { once: true });
+
+    cell.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        cell.blur();
+      } else if (event.key === 'Escape') {
+        cell.textContent = originalContent;
+        cell.blur();
+      }
+    });
+  }
+}
+
+
+function AjouteCompteTAB(MainCompte: any, paterne: number, ComptePreRemplis: number) {
+  // alert("MainCompte "+MainCompte)
+  // alert("paterne "+paterne)
+  // alert("ComptePreRemplis "+ComptePreRemplis)
+
+
+
+  if (ComptePreRemplis === 1) {
+   // document.getElementById(E${0}-y${0}-x0)!.textContent = "Compte"; // Remplir numéro de compte
+
+    for (let E = 0; E < paterne; E++) {
+      alert("E = "+E)
+      alert("MainCompte[E].length = "+MainCompte[E].length)
+
+      for (let ligne = 0; ligne < MainCompte[E].length; ligne++) {
+        //alert("ligne ")
+
+        document.getElementById(E${E}-y${ligne}-x0)!.textContent = MainCompte[E][ligne]; // Remplir numéro de compte
+        //document.getElementById(E${E}-y${ligne}-x1)!.textContent = trouverDescriptionCompte(MainCompte[E][ligne]); // Remplir description
+      }
+    }
+  } else {
+    for (let E = 0; E < paterne; E++) {
+      for (let ligne = 0; ligne < MainCompte[E].length; ligne++) {
+        document.getElementById(E${E}-y${ligne}-x1)!.textContent = ""; // Vider la cellule
+      }
+    }
+  }
+}
+
+// Composant principal pour afficher la table
+const MakeTable = ({ lieutable, tableId, tableClass, numRows }: { lieutable: string, tableId: string, tableClass: string, numRows: number }) => {
+
+  // Fonction pour rendre une cellule modifiable
+  useEffect(() => {
+    // Appelle la fonction pour rendre le tableau éditable après le rendu
+    makeTableEditable(tableId);
+    AjouteCompteTAB(MainCompte, paterne, ComptePreRemplis); // Remplir les comptes et descriptions
+
+
+  }, [tableId]);
+
+
+
+
+  return (
+    <>
+    <div>
+      <h3 className={Styles.date}>Date non disponible</h3>
+    </div>
+
+    <div id={lieutable}>
+      
+      {createTable(lieutable, tableId, tableClass, numRows)}
+    </div>
+    </>
+  );
+};
+
+export default MakeTable;
+
