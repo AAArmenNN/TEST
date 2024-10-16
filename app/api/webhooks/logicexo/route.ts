@@ -39,9 +39,9 @@ function OPN() {
 
     let idOp = randomNum(0, operations.length);
     idOp = operations[idOp];
-    idOp=12
+    //idOp=12
 
-    énoncé = "idOp = "+idOp;
+    énoncé = "Aucun thème séléctionné";
 
   
     console.log("ID de l'opération = " + idOp);

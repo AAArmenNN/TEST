@@ -38,6 +38,9 @@ export default function Exo() {
   let MainCrédit = data?.MainCrédit ?? []; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
   let paterne = data?.paterne ?? []; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
 
+  let scoreUser: any = 0
+
+
   console.log("START EXO")
 
   let [ComptePreRemplis, setComptePreRemplis] = useState<number>(0);
@@ -62,6 +65,7 @@ export default function Exo() {
     const exoElement = document.getElementById("idExo");
     if (exoElement) {
       exoElement.textContent = "Question " + CompteurExo + "/" + CompteurExoTotal;
+      console.log("Question " + CompteurExo + "/" + CompteurExoTotal)
     }
     if (CompteurExo == CompteurExoTotal) {
       document.getElementById("Btnsuiv")!.textContent = "Terminé"
@@ -138,6 +142,15 @@ export default function Exo() {
     }
   }, [data]); // Appeler la fonction lorsque les données sont disponibles
 
+  function NbCara(str: any) {
+    let longeur = 6 - str.length
+    for (let nb = 0; nb < longeur; nb++) {
+      str = str + "0";
+    }
+    return str
+
+  }
+
   const ValiderEcriture = () => {
     // Logique de validation de l'écriture
 
@@ -156,7 +169,9 @@ export default function Exo() {
 
         if (comptee && debb && credd) {
 
-          let CompteCase = comptee.textContent
+          //let CompteCase = comptee.textContent
+          let CompteCase = NbCara(comptee.textContent)
+
           let DebitCase = debb.textContent;
           let CreditCase = credd.textContent;
 
@@ -196,7 +211,7 @@ export default function Exo() {
             }
 
           } else {
-            console.log(`${CompteCase} n'est pas présent dans le tableau.`);
+            //console.log(`${CompteCase} n'est pas présent dans le tableau.`);
 
             comptee.classList.add(Styles.faux);
             comptee.classList.remove(Styles.bon);
@@ -217,7 +232,6 @@ export default function Exo() {
 
 
 
-    let scoreUser: any;
 
 
     if (result && Btnsuiv && BtnVal && textCorrigé && TableauCorrige) {
@@ -227,8 +241,8 @@ export default function Exo() {
         result.innerHTML = "Bonne réponse ! Bravo !";
         result.classList.add(Styles.resultOK);
         result.classList.remove(Styles.resultFAUX);
-
         scoreUser++; // incrémentation du score
+        console.log("scoreUser = "+scoreUser)
       }
       else {
         result.innerHTML = `Mauvaise réponse : Il y a ${erreur} erreur(s)`;
@@ -243,38 +257,48 @@ export default function Exo() {
     } else {
       console.error("Un ou plusieurs éléments HTML ne sont pas trouvés.");
     }
-
-
-    //creationTableauxCorrige();
-    //AjouteValeurTABCorrigé();
-
-
-
   };
 
-  function supprimerTAB() {
-
-    for (let idsupp = 0; idsupp < MainCompte.length; idsupp++) {
-
-      const table = document.getElementById(`E${idsupp}`);
-      const tableCorrige = document.getElementById(`C${idsupp}`);
-
-      //console.log(`E${idsupp}`);
-      if (table) {
-        table.remove();
-        // console.log('Tableau supprimé.');
-      } else {
-        //console.log('Tableau introuvable.');
-      }
-      if (tableCorrige) {
-        tableCorrige.remove();
-        // console.log('Tableau supprimé.');
-      } else {
-        //console.log('Tableau introuvable.');
-      }
-    }
-  }
   const Btnsuivant = () => {
+
+    if (CompteurExo == CompteurExoTotal) {
+
+      const boite = document.getElementById("boite");
+      const scoreid = document.getElementById("scoreid");
+      const scoreX = document.getElementById("scoreX");
+      const NoteX = document.getElementById("NoteX");
+
+
+      if (boite && scoreid) { // Verfi si boite et scoreid existe bien
+        boite.style.display = 'none';
+        scoreid.style.display = 'table';
+        console.log("boite && scoreid = OK")
+
+      }
+
+      scoreUser = Math.round(scoreUser / CompteurExoTotal * 100);
+
+      let phrase = "";
+
+      if (scoreUser > 30) {
+        phrase = "Ce thème est à retravailler,"
+      } else {
+        phrase = "Aie ! Les bases sont à travailler,"
+      }
+      if (scoreUser > 50) {
+        phrase = "Pas mal !"
+      }
+      if (scoreUser > 70) {
+        phrase = "Bravo !"
+      }
+      if (scoreUser == 100) {
+        phrase = "Wahou ! C'est un sans faute ! bien joué !"
+      }
+
+      scoreX!.textContent = phrase + " votre score est de : " + scoreUser + " %"
+      NoteX!.textContent = scoreUser / 5 + " / 20"
+
+    }
 
     // Incrémente le compteur
     setCompteurExo(prev => prev + 1);
@@ -309,6 +333,11 @@ export default function Exo() {
       console.error("Un ou plusieurs éléments HTML ne sont pas trouvés.");
     }
 
+    window.scrollTo({
+      top: 0, // Définit la position verticale à 0
+      behavior: 'smooth', // Ajoute une animation fluide
+    });
+
     // Appelle la fonction OPN pour générer de nouvelles données
     fetch('/api/webhooks/logicexo', {
       method: 'POST',
@@ -323,6 +352,7 @@ export default function Exo() {
       })
       .catch(error => console.error('Erreur lors de la mise à jour des données', error));
     //console.log("message 2 Suiv= " + message)
+
   };
 
   // Fonction pour retourner au menu
@@ -337,82 +367,97 @@ export default function Exo() {
       </Head>
 
       <div className={Styles.master}>
-        <p id="idExo" className={Styles.idOP}></p>
+        <main id="boite">
 
-        {/* Bouton Retour au menu */}
-        <button className={Styles.customButton}
-          onClick={handleRetourMenu} >
-          Retour au menu ❌
-        </button>
+          <p id="idExo" className={Styles.idOP}></p>
 
-        <h1 id="ZOZO" >Comptabiliser l'écriture : </h1>
-        {/* Question */}
-        {data ? (
-          <p className={Styles.styleQuestion}
-            id="ask"
-            dangerouslySetInnerHTML={{
-              __html: data.message.replace(/\n/g, '<br />'),
-            }}
-          />
-        ) : (
-          <p>Chargement...</p>
-        )}
-        <br />
-
-        {/* Injection des Tableaux en fonction de 'paterne'     style={{ marginBottom: '40px' }}*/}
-        <div id="TABvides" className={Styles.TAB}>
-
-          {data && Array.from({ length: data.paterne }).map((_, index) => (
-            <div className={Styles.LigneEcriture} >
-              <MakeTable
-                key={index}
-                lieutable={`lieutable-${index}`}
-                tableId={`E${index}`}
-                //tableClass={`tableClass-${index}`}
-                tableClass={`tableClassssss`}
-
-                numRows={data.MainCompte[index] ? data.MainCompte[index].length : 0} // SOUVENT DES ERREURS ICI =======================================================================
-              />
-            </div>
-          ))}
-        </div>
-
-        <br /><br />
-
-        <div className={Styles.container}>
-          {/* Bouton Valider l'écriture */}
-          <button className={Styles.customButton} id="BtnVal" onClick={ValiderEcriture}>
-            Valider cette écriture
+          {/* Bouton Retour au menu */}
+          <button className={Styles.customButton}
+            onClick={handleRetourMenu} >
+            Retour au menu ❌
           </button>
-          <h2 className={Styles.resultOK} style={{ display: 'none' }} id="result">en attente</h2>
-        </div>
 
-        <br /><br />
+          <h1 id="ZOZO" >Comptabiliser l'écriture : </h1>
+          {/* Question */}
+          {data ? (
+            <p className={Styles.styleQuestion}
+              id="ask"
+              dangerouslySetInnerHTML={{
+                __html: data.message.replace(/\n/g, '<br />'),
+              }}
+            />
+          ) : (
+            <p>Chargement...</p>
+          )}
+          <br />
 
-        <h2 id="textCorrigé" style={{ display: 'none' }}>Corrigé :</h2>
-        <br />
-        {/* Tableau corrigé */}
-        <div id="TABcorrigé" className={Styles.TAB} style={{ display: 'none' }}>
-          {data && Array.from({ length: data.paterne }).map((_, index) => (
-            <div className={Styles.LigneEcriture} >
-              <MakeTableCorrige
-                key={index}
-                lieutable={`lieutable-${index}`}
-                tableId={`C${index}`}
-                tableClass={`tableClass-${index}`}
-                numRows={data.MainCompte[index] ? data.MainCompte[index].length : 0}
-              />
-            </div>
-          ))}
-        </div>
+          {/* Injection des Tableaux en fonction de 'paterne'     style={{ marginBottom: '40px' }}*/}
+          <div id="TABvides" className={Styles.TAB}>
 
-        <br /><br />
+            {data && Array.from({ length: data.paterne }).map((_, index) => (
+              <div className={Styles.LigneEcriture} >
+                <MakeTable
+                  key={index}
+                  lieutable={`lieutable-${index}`}
+                  tableId={`E${index}`}
+                  //tableClass={`tableClass-${index}`}
+                  tableClass={`tableClass`}
 
-        <div className={Styles.container}>
-          {/* Bouton Suivant */}
-          <button className={Styles.customButton} style={{ display: 'none' }} id="Btnsuiv" onClick={Btnsuivant}>
-            Suivant
+                  numRows={data.MainCompte[index] ? data.MainCompte[index].length : 0} // SOUVENT DES ERREURS ICI =======================================================================
+                />
+              </div>
+            ))}
+          </div>
+
+          <br /><br />
+
+          <div className={Styles.container}>
+            {/* Bouton Valider l'écriture */}
+            <button className={Styles.customButton} id="BtnVal" onClick={ValiderEcriture}>
+              Valider cette écriture
+            </button>
+            <h2 className={Styles.resultOK} style={{ display: 'none' }} id="result">en attente</h2>
+          </div>
+
+          <br /><br />
+
+          <h2 id="textCorrigé" style={{ display: 'none' }}>Corrigé :</h2>
+          <br />
+          {/* Tableau corrigé */}
+          <div id="TABcorrigé" className={Styles.TAB} style={{ display: 'none' }}>
+
+            {data && Array.from({ length: data.paterne }).map((_, index) => (
+              <div className={Styles.LigneEcriture} >
+                <MakeTableCorrige
+                  key={index}
+                  lieutable={`lieutable-${index}`}
+                  tableId={`C${index}`}
+                  tableClass={`tableClass`}
+                  numRows={data.MainCompte[index] ? data.MainCompte[index].length : 0}
+                />
+              </div>
+            ))}
+          </div>
+
+          <br /><br />
+
+          <div className={Styles.container}>
+            {/* Bouton Suivant */}
+            <button className={Styles.customButton} style={{ display: 'none' }} id="Btnsuiv" onClick={Btnsuivant}>
+              Suivant
+            </button>
+          </div>
+        </main>
+
+        <div id="scoreid" className={Styles.boiteScore} style={{ display: 'none' }}>
+          <p id="scoreX" className={Styles.score} style={{ display: 'none' }}></p>
+          <p id="NoteX" className={Styles.note} style={{ display: 'none' }}></p>
+          <button className={Styles.customButton}
+            onClick={handleRetourMenu}
+            style={{ display: 'none' }} >
+            Retour au menu ❌
           </button>
+
         </div>
       </div>
     </>

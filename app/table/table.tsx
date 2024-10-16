@@ -35,6 +35,10 @@ const createTable = (lieutable: string, tableId: string, tableClass: string, num
       id={tableId}
       className={tableClass}
       style={{
+        borderRadius: '6px', // Bordure arrondie pour le tableau
+        overflow: 'hidden', // Pour éviter que les bordures dépassent si elles sont arrondies
+        borderCollapse: 'collapse', // Pour éviter des bordures doubles entre les cellules
+        border: '2px solid black', // Bordure noire autour de chaque cellule
         
       }}
     >

@@ -217,6 +217,46 @@
   max-width: 80%; /* Largeur maximale */
 }
 
+.score {
+  background-color: #f3bc55; 
+  color: #050404; 
+  text-align: center;
+  font-size: 22px; /* Taille de la police */
+  border-radius: 16px; /* Bords arrondis */
+  width: 50%; /* Largeur maximale */
+  margin: 20px auto; /* Marges avec auto pour centrer */
+  margin-top: 120px ; /* Marges avec auto pour centrer */
+  letter-spacing: 1px;
+
+
+  padding: 30px; /* Espacement interne */
+  box-shadow: 0px 4px 20px 3px #0405042f; /* Ombre portée */
+  font-family: 'Arial', sans-serif; /* Police de caractères */
+  font-weight: bold; /* Gras */
+
+
+}
+
+.note{
+  color : rgb(8, 54, 54);
+  text-align: center;
+  font-size: 82px; /* Taille de la police */
+  border-radius: 5px; /* Bords arrondis */
+  margin: 20px auto; /* Marges avec auto pour centrer */
+  margin-top: 150px ; /* Marges avec auto pour centrer */
+
+  padding: 10px; /* Espacement interne */
+  width: 30%; /* Largeur maximale */
+  font-weight: bold; /* Gras */
+
+  background-color: #fdfbf8; /* Couleur de fond */
+  
+  box-shadow: 0px 4px 20px 3px #0405042f; /* Ombre portée */
+  font-family: 'Arial', sans-serif; /* Police de caractères */
+
+
+}
+
 /* Vesrion Iphone */
 @media (max-width: 1400px) { 
   .LigneEcriture {
@@ -228,6 +268,8 @@
     padding: 0px; /* Espacement interne */
     margin-bottom: 40px;
     width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   
   }
   .date {
@@ -251,6 +293,8 @@
   .master :global(table) {
     width: 100%;
     font-size: 14px;
+    border-radius: 9px;
+
 
   }
 
@@ -261,13 +305,13 @@
     /* Couleur de fond */
     padding: 10px;
     /* Espacement interne */
-    border: 1px solid teal;
+    border: 1.5px solid rgb(0, 0, 0); 
     /* Bordure */
     border-radius: 9px;
     /* Bords arrondis */
     margin: 20px auto;
     /* Marges avec auto pour centrer */
-    max-width: 95%;
+    max-width: 97%;
     /* Largeur maximale */
   }
   
