@@ -38,10 +38,37 @@ export default function Exo() {
   let MainCrédit = data?.MainCrédit ?? []; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
   let paterne = data?.paterne ?? []; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
 
-  let storedValue = localStorage.getItem('ComptePreRemplis');
-  let ComptePreRemplis = storedValue ? parseInt(storedValue) : 0;
+  console.log("START EXO")
 
- console.log("message 1 = "+message)
+  let [ComptePreRemplis, setComptePreRemplis] = useState<number>(0);
+  let [CompteurExoTotal, setNbop] = useState<number>(10);
+  const [CompteurExo, setCompteurExo] = useState<number>(1);
+
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Récupération de ComptePreRemplis depuis le localStorage
+      let storedValue = localStorage.getItem('ComptePreRemplis');
+      setComptePreRemplis(storedValue ? parseInt(storedValue) : 0);
+
+      // Récupération de CompteurExoTotal depuis le localStorage
+      let storedNbOp = localStorage.getItem('CompteurExoTotal');
+      setNbop(storedNbOp ? parseInt(storedNbOp) : 0);
+
+    }
+  }, []);
+
+  useEffect(() => {
+    const exoElement = document.getElementById("idExo");
+    if (exoElement) {
+      exoElement.textContent = "Question " + CompteurExo + "/" + CompteurExoTotal;
+    }
+    if (CompteurExo == CompteurExoTotal) {
+      document.getElementById("Btnsuiv")!.textContent = "Terminé"
+    } else {
+      document.getElementById("Btnsuiv")!.textContent = "Suivant"
+    }
+  }, [CompteurExo, CompteurExoTotal]); // Dépendances
 
   // Fonction pour remplir les comptes dans le tableau
   function AjouteCompteTAB(MainCompte: any, paterne: any, ComptePreRemplis: number, MainNomOP: any, MainDate: any) {
@@ -75,7 +102,7 @@ export default function Exo() {
 
           document.getElementById(`E${E}-y${ligne}-x0`)!.textContent = "";
           document.getElementById(`E${E}-y${ligne}-x1`)!.textContent = "";
-          
+
           document.getElementById(`E${E}-y${ligne}-x2`)!.textContent = "";
           document.getElementById(`E${E}-y${ligne}-x3`)!.textContent = "";
 
@@ -110,8 +137,6 @@ export default function Exo() {
       AjouteCompteTABcorrige(MainCompte, paterne, MainDébit, MainCrédit, MainNomOP, MainDate);
     }
   }, [data]); // Appeler la fonction lorsque les données sont disponibles
-
-
 
   const ValiderEcriture = () => {
     // Logique de validation de l'écriture
@@ -191,8 +216,8 @@ export default function Exo() {
     const TableauCorrige = document.getElementById("TABcorrigé");
 
 
-    
-    let scoreUser:any;
+
+    let scoreUser: any;
 
 
     if (result && Btnsuiv && BtnVal && textCorrigé && TableauCorrige) {
@@ -204,7 +229,7 @@ export default function Exo() {
         result.classList.remove(Styles.resultFAUX);
 
         scoreUser++; // incrémentation du score
-      } 
+      }
       else {
         result.innerHTML = `Mauvaise réponse : Il y a ${erreur} erreur(s)`;
         result.classList.add(Styles.resultFAUX);
@@ -231,25 +256,34 @@ export default function Exo() {
 
     for (let idsupp = 0; idsupp < MainCompte.length; idsupp++) {
 
-        const table = document.getElementById(`E${idsupp}`);
-        const tableCorrige = document.getElementById(`C${idsupp}`);
+      const table = document.getElementById(`E${idsupp}`);
+      const tableCorrige = document.getElementById(`C${idsupp}`);
 
-        //console.log(`E${idsupp}`);
-        if (table) {
-            table.remove();
-            // console.log('Tableau supprimé.');
-        } else {
-            //console.log('Tableau introuvable.');
-        }
-        if (tableCorrige) {
-          tableCorrige.remove();
-          // console.log('Tableau supprimé.');
+      //console.log(`E${idsupp}`);
+      if (table) {
+        table.remove();
+        // console.log('Tableau supprimé.');
       } else {
-          //console.log('Tableau introuvable.');
+        //console.log('Tableau introuvable.');
+      }
+      if (tableCorrige) {
+        tableCorrige.remove();
+        // console.log('Tableau supprimé.');
+      } else {
+        //console.log('Tableau introuvable.');
       }
     }
-}
+  }
   const Btnsuivant = () => {
+
+    // Incrémente le compteur
+    setCompteurExo(prev => prev + 1);
+    console.log("CompteurExo Suivant = " + CompteurExo)
+
+    let exoElement = document.getElementById("idExo");
+    if (exoElement) {
+      exoElement.textContent = "Question " + CompteurExo + "/" + CompteurExoTotal;
+    }
 
     const result = document.getElementById("result");
     const Btnsuiv = document.getElementById("Btnsuiv");
@@ -259,12 +293,12 @@ export default function Exo() {
     const ask = document.getElementById("ask");
 
 
-    if (result && Btnsuiv && BtnVal && textCorrigé && TableauCorrige &&ask) {
+    if (result && Btnsuiv && BtnVal && textCorrigé && TableauCorrige && ask) {
 
       //supprimerTAB()
 
       ask.textContent = "Chargement...";
-    
+
       TableauCorrige.style.display = 'none';
 
       Btnsuiv.style.display = 'none'; // fait apparaître le bouton suivant
@@ -288,13 +322,9 @@ export default function Exo() {
           .catch(error => console.error('Erreur lors de l\'appel à l\'API après le clic sur Suivant', error));
       })
       .catch(error => console.error('Erreur lors de la mise à jour des données', error));
-
-      console.log("message 2 Suiv= "+message)
-
-      //AjouteCompteTAB(MainCompte, paterne, ComptePreRemplis, MainNomOP, MainDate);
-      //AjouteCompteTABcorrige(MainCompte, paterne, MainDébit, MainCrédit, MainNomOP, MainDate);   
+    //console.log("message 2 Suiv= " + message)
   };
-  
+
   // Fonction pour retourner au menu
   const handleRetourMenu = () => {
     window.location.href = '/compta'; // Adaptation de la route pour Next.js
@@ -311,19 +341,14 @@ export default function Exo() {
 
         {/* Bouton Retour au menu */}
         <button className={Styles.customButton}
-        onClick={handleRetourMenu} >
+          onClick={handleRetourMenu} >
           Retour au menu ❌
         </button>
 
         <h1 id="ZOZO" >Comptabiliser l'écriture : </h1>
-
-
         {/* Question */}
-
-
         {data ? (
-          <p
-            className={Styles.styleQuestion}
+          <p className={Styles.styleQuestion}
             id="ask"
             dangerouslySetInnerHTML={{
               __html: data.message.replace(/\n/g, '<br />'),
@@ -331,14 +356,11 @@ export default function Exo() {
           />
         ) : (
           <p>Chargement...</p>
-         )}
-
-
+        )}
         <br />
 
         {/* Injection des Tableaux en fonction de 'paterne'     style={{ marginBottom: '40px' }}*/}
         <div id="TABvides" className={Styles.TAB}>
-
 
           {data && Array.from({ length: data.paterne }).map((_, index) => (
             <div className={Styles.LigneEcriture} >
@@ -346,18 +368,16 @@ export default function Exo() {
                 key={index}
                 lieutable={`lieutable-${index}`}
                 tableId={`E${index}`}
-                tableClass={`tableClass-${index}`}
+                //tableClass={`tableClass-${index}`}
+                tableClass={`tableClassssss`}
+
                 numRows={data.MainCompte[index] ? data.MainCompte[index].length : 0} // SOUVENT DES ERREURS ICI =======================================================================
               />
             </div>
-
           ))}
-
         </div>
 
-
-
-        <br /><br /><br />
+        <br /><br />
 
         <div className={Styles.container}>
           {/* Bouton Valider l'écriture */}
@@ -381,7 +401,7 @@ export default function Exo() {
                 tableId={`C${index}`}
                 tableClass={`tableClass-${index}`}
                 numRows={data.MainCompte[index] ? data.MainCompte[index].length : 0}
-                />
+              />
             </div>
           ))}
         </div>

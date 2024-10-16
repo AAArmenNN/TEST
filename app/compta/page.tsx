@@ -10,26 +10,25 @@ export default function compta() {
 
   // Création de l'état pour gérer le texte du <h2>
   const [text, setText] = useState('Sélectionner les thèmes à réviser');
-  let ComptePreRemplis = 0
-
-  /*
-    // Fonction pour changer le texte
-    const changeText = () => {
-      setText('Le texte a été changé !');
-    };*/
+  //let ComptePreRemplis = 0
 
   // Gestion des états
   const [nbop, setNbop] = useState(0);
   const [checkedValues, setCheckedValues] = useState<string[]>([]);
-  const [comptePreRemplis, setComptePreRemplis] = useState(0);
+  const [comptePreRemplis, setComptePreRemplis] = useState(9); // valeur par défaut
 
   // Fonction pour le nombre d'opérations
   const updateNbOP = (nb: number) => {
     setNbop(nb);
     localStorage.setItem('CompteurExoTotal', nb.toString());
   };
+
+
   // Fonction pour gérer l'aide compte
   const aideCompte = (yn: number) => {
+     //ouinon = yn;
+     console.log("aideCompte ="+yn)
+
     setComptePreRemplis(yn);
     localStorage.setItem('ComptePreRemplis', yn.toString());
   };
@@ -77,6 +76,8 @@ export default function compta() {
 
     } else if (nbop === 0) {
       alert("Choisir le nombre d'opération");
+    } else if (comptePreRemplis === 9) {
+      alert("Choisir le remplissage des numéros de comptes");
     } else {
       window.location.href = '/exo'; // Redirige vers la page exo
     }

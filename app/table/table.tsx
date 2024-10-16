@@ -18,7 +18,7 @@ useEffect(() => {
         <h3 id= {`Date-${tableId}`} className={Styles.date}>Date non disponible</h3>
       </div>
 
-      <div id={lieutable}>
+      <div id={lieutable} className='classlieutable'>
         {createTable(lieutable, tableId, tableClass, numRows)}
       </div>
     </>
@@ -35,19 +35,13 @@ const createTable = (lieutable: string, tableId: string, tableClass: string, num
       id={tableId}
       className={tableClass}
       style={{
-        width: '100%',
-        backgroundColor: 'black',
-        marginLeft: '40px',
-        borderRadius: '4px',
-        overflow: 'hidden',
-        borderCollapse: 'collapse',
-        border: '2px solid black',
+        
       }}
     >
       <thead>
         <tr style={{ backgroundColor: 'teal' }}>
           <th style={{ width: '120px', border: '2px solid black' }}>N° de compte</th>
-          <th style={{ minWidth: '300px', border: '2px solid black' }}>Libellé</th>
+          <th style={{ maxWidth: '95%', border: '2px solid black' }}>Libellé</th>
           <th style={{ width: '100px', border: '2px solid black' }}>Débit</th>
           <th style={{ width: '100px', border: '2px solid black' }}>Crédit</th>
         </tr>
