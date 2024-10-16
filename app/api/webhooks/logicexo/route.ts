@@ -1,11 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-
-//import { OPN } from '../../../utils/logic';
-//import ExoTable from '../../../table/table';
-
-
-
 //-------------------------------------------------------------------------------
 let scoreUser = 0;
 
@@ -18,10 +12,20 @@ let MainDébit: any[] = [];
 let MainCrédit: any[] = [];
 let MainDate: string[] = [];
 
-let énoncé = "vide"
+let énoncé: any = "vide"
 let paterne = 0;
 
-let CompteurExo = 0;
+
+let operations: any[] = [];
+
+// Map des IDs d'opérations associées aux checkboxes
+const operationMap: Record<number, string[]> = {
+  1: ['1', '2', '3', '4', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'], // Opérations pour checkbox 1
+  2: ['20', '21'],
+  3: [],
+  7: ['701', '702'],
+  12: ['51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61']
+};
 
 
 function randomNum(min: number, max: number): number {
@@ -30,20 +34,16 @@ function randomNum(min: number, max: number): number {
 
 
 
- function OPN() {
+function OPN() {
+    énoncé = "Chargement";
 
+    let idOp = randomNum(0, operations.length);
+    idOp = operations[idOp];
+    //idOp=12
 
-    //________________________________________________________________________________________________________________
+    énoncé = "idOp = "+idOp;
 
-    //console.log("opSelectionnées longeur = "+operations.length);
-
-    let idOp = randomNum(5, 15);//randomNum(0, operations.length); // type d'opération
-    énoncé = "HELLO"
-
-    //console.log("ID de la liste 'operations' = "+idOp); //c'est ok
-
-    //idOp = operations[idOp];
-
+  
     console.log("ID de l'opération = " + idOp);
 
     // ________________________________________________________________________________________________________________
@@ -257,7 +257,7 @@ function randomNum(min: number, max: number): number {
         let TVA20 = (prixHT) / 5;
         let TT = prixHT + TVA20;
 
-        énoncé = "Le 4 mai 2023: réception de la facture pour l'entretien du camion de livraison d'un montant de " + prixHT + " € HT.\nLa facture porte la mention « TVA sur les débits ». Au bas de la facture est mentionné « escompte de 2% si le paiement intervient dans les 8 jours ».\n\nLe 5 mai 2023 : règlement par virement de la facture du 4 mai 2023 après déduction de l'escompte de 2 %. La facture d'avoir concernant cet escompte est reçue le jour même.";
+        énoncé = "Le 4 mai 2023: réception de la facture pour l'entretien du camion de livraison d'un montant de " + prixHT + " € HT.\nLa facture porte la mention « TVA sur les débits ». Au bas de la facture est mentionné « escompte de 2% si le paiement intervient dans les 8 jours ».\nLe 5 mai 2023 : règlement par virement de la facture du 4 mai 2023 après déduction de l'escompte de 2 %. La facture d'avoir concernant cet escompte est reçue le jour même.";
 
         MainNomOP[0] = "Facture"
         MainDate[0] = "04/05";
@@ -349,7 +349,7 @@ function randomNum(min: number, max: number): number {
 
         let prixHTfinal = TT * 5
 
-        énoncé = "Le 7 mai 2023 : réception d'un virement de " + TT + " € TTC à titre d'acompte suite à l'acceptation d'un devis par un client<br><br>Le 17 mai 2023 : Facture finale de " + prixHTfinal + " € HT de marchandises avec TVA à 20%";
+        énoncé = "Le 7 mai 2023 : réception d'un virement de " + TT + " € TTC à titre d'acompte suite à l'acceptation d'un devis par un client\n\nLe 17 mai 2023 : Facture finale de " + prixHTfinal + " € HT de marchandises avec TVA à 20%";
 
         MainNomOP[0] = "Versement de l'acompte"
         MainDate[0] = "07/05";
@@ -388,7 +388,7 @@ function randomNum(min: number, max: number): number {
         MainCompte[0] = ["622600", "445800", "401000"];
         MainDébit[0] = [prixHT, TVA20, ""];
         MainCrédit[0] = ["", "", TT];
-        énoncé = "Le " + MainDate[0] + " reception de la facture de l'expert comptable pour la tenu des comptes de " + prixHT + " € HT avec TVA à 20%.<br>Aucune mention particulière sur la facture";
+        énoncé = "Le " + MainDate[0] + " reception de la facture de l'expert comptable pour la tenu des comptes de " + prixHT + " € HT avec TVA à 20%.\nAucune mention particulière sur la facture";
         paterne = 1;
 
     }
@@ -404,7 +404,7 @@ function randomNum(min: number, max: number): number {
         MainCompte[0] = ["622600", "445660", "401000"];
         MainDébit[0] = [prixHT, TVA20, ""];
         MainCrédit[0] = ["", "", TT];
-        énoncé = "Le " + MainDate[0] + " reception de la facture de l'expert comptable pour la tenu des comptes de " + prixHT + " € HT avec TVA à 20%.<br>Mention TVA sur les débits sur la facture";
+        énoncé = "Le " + MainDate[0] + " reception de la facture de l'expert comptable pour la tenu des comptes de " + prixHT + " € HT avec TVA à 20%.\nMention TVA sur les débits sur la facture";
         paterne = 1;
 
     }
@@ -445,7 +445,7 @@ function randomNum(min: number, max: number): number {
         MainCrédit[1] = ["", TT];
         MainDate[1] = "29/03/2024";
 
-        énoncé = "Le " + MainDate[0] + ", notification d'attribution d'une subvention d'exploitation de " + prixHT + " € .<br><br> Versement de la subvention : " + MainDate[1];
+        énoncé = "Le " + MainDate[0] + ", notification d'attribution d'une subvention d'exploitation de " + prixHT + " € .\n\n Versement de la subvention : " + MainDate[1];
 
 
         paterne = 2;
@@ -471,7 +471,7 @@ function randomNum(min: number, max: number): number {
         MainCrédit[1] = ["", prixHT];
         MainDate[1] = "29/03/2024";
 
-        énoncé = "Le " + MainDate[0] + ", notification d'attribution d'une subvention d'équilibre de " + prixHT + " € .<br><br> Versement de la subvention : " + MainDate[1];
+        énoncé = "Le " + MainDate[0] + ", notification d'attribution d'une subvention d'équilibre de " + prixHT + " € .\n\n Versement de la subvention : " + MainDate[1];
 
 
         paterne = 2;
@@ -497,7 +497,7 @@ function randomNum(min: number, max: number): number {
         MainCrédit[1] = ["", prixHT];
         MainDate[1] = "29/03/2024";
 
-        énoncé = "Le " + MainDate[0] + ", notification d'attribution d'une subvention d'investissement de " + prixHT + " € .<br><br> Versement de la subvention : " + MainDate[1];
+        énoncé = "Le " + MainDate[0] + ", notification d'attribution d'une subvention d'investissement de " + prixHT + " € .\n\n Versement de la subvention : " + MainDate[1];
 
 
         paterne = 2;
@@ -521,7 +521,7 @@ function randomNum(min: number, max: number): number {
         MainCrédit[1] = ["", prixHT];
         MainDate[1] = "29/03/2024";
 
-        énoncé = "Le " + MainDate[0] + ", notification d'attribution d'une subvention d'investissement de " + prixHT + " € .<br><br> Versement de la subvention : " + MainDate[1];
+        énoncé = "Le " + MainDate[0] + ", notification d'attribution d'une subvention d'investissement de " + prixHT + " € .\n\n Versement de la subvention : " + MainDate[1];
 
 
         paterne = 2;
@@ -545,7 +545,7 @@ function randomNum(min: number, max: number): number {
         MainCrédit[1] = ["", prixHT];
         MainDate[1] = "29/03/2024";
 
-        énoncé = "Le " + MainDate[0] + ", notification d'attribution d'une subvention pour l'achat d'une immobilisation de " + prixHT + " € .<br><br> Versement de la subvention : " + MainDate[1];
+        énoncé = "Le " + MainDate[0] + ", notification d'attribution d'une subvention pour l'achat d'une immobilisation de " + prixHT + " € .\n\n Versement de la subvention : " + MainDate[1];
 
 
         paterne = 2;
@@ -604,7 +604,7 @@ function randomNum(min: number, max: number): number {
         prixHT = prixHT * 5
 
 
-        énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour l'achat d'un terrain (donc non amortissable).<br>Il existe une clause d'inaliénabilité de 5 ans";
+        énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour l'achat d'un terrain (donc non amortissable).\nIl existe une clause d'inaliénabilité de 5 ans";
 
         let TT = prixHT / 5
         MainNomOP[0] = "Inventaire : "
@@ -628,7 +628,7 @@ function randomNum(min: number, max: number): number {
         prixHT = prixHT * 10
 
 
-        énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour l'achat d'un terrain (donc non amortissable).<br>Il n'existe aucune clause d'inaliénabilité";
+        énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour l'achat d'un terrain (donc non amortissable).\nIl n'existe aucune clause d'inaliénabilité";
 
         let TT = prixHT / 10
         MainNomOP[0] = "Inventaire : "
@@ -652,7 +652,7 @@ function randomNum(min: number, max: number): number {
         prixHT = prixHT * 10
 
 
-        énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour l'achat d'un terrain (donc non amortissable).<br>Il n'existe aucune clause d'inaliénabilité";
+        énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour l'achat d'un terrain (donc non amortissable).\nIl n'existe aucune clause d'inaliénabilité";
 
         let TT = prixHT / 10
         MainNomOP[0] = "Inventaire : "
@@ -676,7 +676,7 @@ function randomNum(min: number, max: number): number {
         prixHT = prixHT * 10
 
 
-        énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour d'un camion.<br>Ce camion a été acheté pour " + prixHT * 2 + " €, est mis en service le 1er juillet N et amorti sur une durée de 10 ans";
+        énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour d'un camion.\nCe camion a été acheté pour " + prixHT * 2 + " €, est mis en service le 1er juillet N et amorti sur une durée de 10 ans";
 
         let TT = prixHT / 10 / 2
         MainNomOP[0] = "Inventaire N : "
@@ -700,7 +700,7 @@ function randomNum(min: number, max: number): number {
         prixHT = prixHT * 10
 
 
-        énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour un camion.<br>Ce camion a été acheté pour " + prixHT * 2 + " € , mis en service le 1er juillet N-1 et amorti sur une durée de 10 ans";
+        énoncé = "A l'inventaire N, passage au compte de résultat d'une subvention d'investissement de " + prixHT + " € pour un camion.\nCe camion a été acheté pour " + prixHT * 2 + " € , mis en service le 1er juillet N-1 et amorti sur une durée de 10 ans";
 
         let TT = prixHT / 10
         MainNomOP[0] = "Inventaire N : "
@@ -779,7 +779,7 @@ function randomNum(min: number, max: number): number {
         MainCrédit[2] = ["", prixHT];
         MainDate[2] = "31/12/N+1";
 
-        énoncé = "L'entreprise de BTP est en litige avec un client pour des travaux non achevés dans les temps lors de l'exercice N.<br>Elle constate " + prixHT + " € de provision.<br>Une procédure de conciliation a eu lieu en N+1 et l'entreprise accepte de payer " + prixHT2 + " € le " + MainDate[1];
+        énoncé = "L'entreprise de BTP est en litige avec un client pour des travaux non achevés dans les temps lors de l'exercice N.\nElle constate " + prixHT + " € de provision.\nUne procédure de conciliation a eu lieu en N+1 et l'entreprise accepte de payer " + prixHT2 + " € le " + MainDate[1];
 
         paterne = 3;
 
@@ -879,28 +879,75 @@ function randomNum(min: number, max: number): number {
 
 }
 
-
-//ExoTable()
-
 //-------------------------------------------------------------------------------
 
-//-------------------------------------------------------------------------------
+/*
+export async function POST(request: NextRequest) {
+    OPN(); // Génère de nouvelles données côté serveur
 
-//-------------------------------------------------------------------------------
+    // Réponse de confirmation que les données ont été mises à jour
+    return NextResponse.json({ status: 'OK', message: 'Nouvelles données générées avec succès.' });
+}*/
 
+// Fonction POST côté serveur
 
+export async function POST(request: NextRequest) {
+    try {
+        const body = await request.json();
+        const selections = body.valeursCochees;
 
-// const data = { message: 'Hello, voici votre résultat', value: 42 };
-// <p className={Styles.styleQuestion} id="ask">{data.message}: alors {data.value}</p>
+         // Vérifie si selections est un tableau valide
+         if (!Array.isArray(selections)) {
+            throw new Error("Les valeurs cochées ne sont pas un tableau valide.");
+        }
 
+        // Logique de traitement
+        operations = []; // Réinitialise les opérations
+
+        selections.forEach((selection: number) => {
+            if (operationMap[selection]) {
+                operations = operations.concat(operationMap[selection]);
+            }
+        });
+
+        OPN();
+
+        return NextResponse.json({
+            status: 'OK',
+            message: 'Opération réussie',
+            énoncé,
+            MainNomOP,
+            MainDate,
+            MainCompte,
+            MainDébit,
+            MainCrédit,
+            paterne
+        });
+    } catch (error) {
+        console.error("Erreur dans le traitement de la requête : ", error);
+        return NextResponse.json({ 
+            status: 'ERROR', 
+            message: 'Une erreur est survenue.', 
+            //error: error.message 
+            
+        }, { status: 510 });
+    }
+}
 
 
 export async function GET(request: NextRequest) {
-    OPN()
+    const now = new Date().toISOString();
 
-    // Logique de récupération des données
+
+    console.log("message 1 = "+now)
+
+    OPN()
+    // Logique de récupération des données 
     const data = {
         message: énoncé,
+        //message: now,
+
+
         MainNomOP: MainNomOP,
         MainDate: MainDate,
         MainCompte: MainCompte,
@@ -913,10 +960,4 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(data);
 }
 
-export async function POST(request: NextRequest) {
-    OPN(); // Génère de nouvelles données côté serveur
-
-    // Réponse de confirmation que les données ont été mises à jour
-    return NextResponse.json({ status: 'OK', message: 'Nouvelles données générées avec succès.' });
-}
 

@@ -6,10 +6,6 @@ import Styles from '../../styles/exo.module.css';
 import MakeTable from '../table/table';
 import MakeTableCorrige from '../table/tablecorrige';
 //import { OPN } from '../api/webhooks/logicexo/route';
-//import { OPN } from '../utils/logic';
-
-
-
 
 // Définir un type pour les données retournées par l'API
 interface ApiResponse {
@@ -34,15 +30,18 @@ export default function Exo() {
       .catch(error => console.error('Erreur lors de l\'appel à l\'API', error));
   }, []);
 
+  let message = data?.message
   let MainDate = data?.MainDate ?? []; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
   let MainNomOP = data?.MainNomOP ?? []; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
   let MainCompte = data?.MainCompte ?? []; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
   let MainDébit = data?.MainDébit ?? []; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
   let MainCrédit = data?.MainCrédit ?? []; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
   let paterne = data?.paterne ?? []; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
-  let ComptePreRemplis = 1; // Utiliser les données récupérées ou un tableau vide si elles ne sont pas encore disponibles
 
+  let storedValue = localStorage.getItem('ComptePreRemplis');
+  let ComptePreRemplis = storedValue ? parseInt(storedValue) : 0;
 
+ console.log("message 1 = "+message)
 
   // Fonction pour remplir les comptes dans le tableau
   function AjouteCompteTAB(MainCompte: any, paterne: any, ComptePreRemplis: number, MainNomOP: any, MainDate: any) {
@@ -52,7 +51,8 @@ export default function Exo() {
           document.getElementById(`E${E}-y${ligne}-x0`)!.textContent = MainCompte[E][ligne];
           document.getElementById(`Date-E${E}`)!.textContent = MainNomOP[E] + " " + MainDate[E];
 
-
+          document.getElementById(`E${E}-y${ligne}-x2`)!.textContent = "";
+          document.getElementById(`E${E}-y${ligne}-x3`)!.textContent = "";
 
           document.getElementById(`E${E}-y${ligne}-x0`)!.classList.remove(Styles.faux);
           document.getElementById(`E${E}-y${ligne}-x0`)!.classList.remove(Styles.bon);
@@ -75,6 +75,9 @@ export default function Exo() {
 
           document.getElementById(`E${E}-y${ligne}-x0`)!.textContent = "";
           document.getElementById(`E${E}-y${ligne}-x1`)!.textContent = "";
+          
+          document.getElementById(`E${E}-y${ligne}-x2`)!.textContent = "";
+          document.getElementById(`E${E}-y${ligne}-x3`)!.textContent = "";
 
           document.getElementById(`E${E}-y${ligne}-x0`)!.classList.remove(Styles.faux);
           document.getElementById(`E${E}-y${ligne}-x0`)!.classList.remove(Styles.bon);
@@ -121,9 +124,6 @@ export default function Exo() {
 
       for (let Nligne = 0; Nligne < MainCompte[Necriture].length; Nligne++) { // selectionne la ligne de l'ecriture sur le nombre total de ligne dans l'ecriture 
 
-        //console.log("ecriture n° "+Necriture+" et ligne "+ Nligne)
-        console.log(Nligne);
-
         let comptee = document.getElementById(`E${Necriture}-y${Nligne}-x${0}`);
         let debb = document.getElementById(`E${Necriture}-y${Nligne}-x${2}`);
         let credd = document.getElementById(`E${Necriture}-y${Nligne}-x${3}`);
@@ -138,7 +138,6 @@ export default function Exo() {
           let Toupie = MainCompte[Necriture].indexOf(CompteCase);
 
           if (Toupie !== -1) {
-            //console.log(`${CompteCase} est présent dans le tableau à l'index ${Toupie}.`);
 
             if (DebitCase == MainDébit[Necriture][Toupie]) { // Si c'est EXACT pour la colonne débit
               //console.log(debb);
@@ -157,7 +156,6 @@ export default function Exo() {
             }
 
             if (CreditCase == MainCrédit[Necriture][Toupie]) { // Si c'est EXACT pour la colonne crédit
-              //console.log(credd);
 
               credd.classList.add(Styles.bon);
               credd.classList.remove(Styles.faux);
@@ -258,10 +256,14 @@ export default function Exo() {
     const BtnVal = document.getElementById("BtnVal");
     const textCorrigé = document.getElementById("textCorrigé");
     const TableauCorrige = document.getElementById("TABcorrigé");
+    const ask = document.getElementById("ask");
 
-    if (result && Btnsuiv && BtnVal && textCorrigé && TableauCorrige) {
+
+    if (result && Btnsuiv && BtnVal && textCorrigé && TableauCorrige &&ask) {
 
       //supprimerTAB()
+
+      ask.textContent = "Chargement...";
     
       TableauCorrige.style.display = 'none';
 
@@ -287,26 +289,17 @@ export default function Exo() {
       })
       .catch(error => console.error('Erreur lors de la mise à jour des données', error));
 
+      console.log("message 2 Suiv= "+message)
+
       //AjouteCompteTAB(MainCompte, paterne, ComptePreRemplis, MainNomOP, MainDate);
       //AjouteCompteTABcorrige(MainCompte, paterne, MainDébit, MainCrédit, MainNomOP, MainDate);   
   };
-
-
   
-   
-  /*
   // Fonction pour retourner au menu
   const handleRetourMenu = () => {
-    // Logique pour retourner au menu
-    console.log('Retour au menu');
+    window.location.href = '/compta'; // Adaptation de la route pour Next.js
   };
 
-  // Fonction pour passer à la question suivante
-  const handleSuivant = () => {
-    // Logique pour passer à l'exercice suivant
-    console.log('Passer à l\'exercice suivant');
-  };
-*/
   return (
     <>
       <Head>
@@ -317,7 +310,8 @@ export default function Exo() {
         <p id="idExo" className={Styles.idOP}></p>
 
         {/* Bouton Retour au menu */}
-        <button className={Styles.customButton} >
+        <button className={Styles.customButton}
+        onClick={handleRetourMenu} >
           Retour au menu ❌
         </button>
 
@@ -328,10 +322,16 @@ export default function Exo() {
 
 
         {data ? (
-          <p className={Styles.styleQuestion} id="ask">{data.message}</p>
+          <p
+            className={Styles.styleQuestion}
+            id="ask"
+            dangerouslySetInnerHTML={{
+              __html: data.message.replace(/\n/g, '<br />'),
+            }}
+          />
         ) : (
-          <p>Enoncé vide...</p>
-        )}
+          <p>Chargement...</p>
+         )}
 
 
         <br />
@@ -347,7 +347,7 @@ export default function Exo() {
                 lieutable={`lieutable-${index}`}
                 tableId={`E${index}`}
                 tableClass={`tableClass-${index}`}
-                numRows={data.MainCompte[index].length}
+                numRows={data.MainCompte[index] ? data.MainCompte[index].length : 0} // SOUVENT DES ERREURS ICI =======================================================================
               />
             </div>
 
@@ -380,8 +380,8 @@ export default function Exo() {
                 lieutable={`lieutable-${index}`}
                 tableId={`C${index}`}
                 tableClass={`tableClass-${index}`}
-                numRows={data.MainCompte[index].length}
-              />
+                numRows={data.MainCompte[index] ? data.MainCompte[index].length : 0}
+                />
             </div>
           ))}
         </div>
