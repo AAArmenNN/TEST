@@ -5,8 +5,6 @@
   text-align: center;
   letter-spacing: 2px;
   color: rgb(8, 54, 54);
-
-
 }
 
 .master :global(h2) {
@@ -14,18 +12,76 @@
   color: teal;
 }
 
+.TAB{
+  width: 100%;
+}
+
+
+.BarreHaute {
+  display: flex;
+  justify-content: space-between; /* Aligne les éléments avec de l'espace entre eux */
+  align-items: center; /* Centre verticalement les éléments */
+  
+  
+}
+
+.BtnBarreHaute{
+  /* background-color: #f3bc55; */
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+
+
+  /* Vert */
+  border: none;
+  /* Pas de bordure */
+  /* color: rgb(0, 0, 0); */
+
+  /* Texte blanc */
+  font-weight: bold;
+  /* Gras */
+  padding: 15px 32px;
+  /* Espacement interne */
+  text-align: center;
+  /* Alignement du texte */
+  text-decoration: none;
+  /* Pas de soulignement */
+  display: inline-block;
+  /* Affichage en ligne */
+  font-size: 12px;
+  /* Taille de la police */
+  margin: 4px 2px;
+  /* Marges */
+  cursor: pointer;
+  /* Curseur de la souris */
+  border-radius: 16px;
+  /* Bords arrondis */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  /* Ombre portée */
+  transition: background-color 0.3s ease;
+  /* Transition pour les effets */
+  /* margin-left: 3px;
+  margin-right: 3px; */
+  width: 15%;
+
+}
 
 .idOP {
-  color : rgb(8, 54, 54);
+  color : rgb(92, 91, 91);
+  font-weight: bold;
   text-align: center;
-  font-size: 19px; /* Taille de la police */
+  font-size: 15px; /* Taille de la police */
   border-radius: 16px; /* Bords arrondis */
-  border: 1px solid teal; /* Bordure */
+  /* border: 1px solid teal; Bordure */
   width: 150px; /* Largeur maximale */
   margin: 20px auto; /* Marges avec auto pour centrer */
   padding: 10px; /* Espacement interne */
-  background-color: #fdfbf8; /* Couleur de fond */
+  /* background-color: #fdfbf8; Couleur de fond */
 
+}
+
+.ZOZO{
+
+  margin-top: 50px;
 }
 
 .LigneEcriture {
@@ -116,7 +172,7 @@
   /* Transition pour les effets */
   margin-left: auto;
   margin-right: auto;
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 /* Effet au survol de la souris */
@@ -159,7 +215,12 @@
 
 }
 
-
+.textCorrigé{
+  margin-left: auto;
+  margin-right: auto;
+  color: #050404;
+  font-weight: bold;
+}
 
 
 
@@ -264,6 +325,13 @@
 
 /* Vesrion Iphone */
 @media (max-width: 1400px) { 
+
+  .BtnBarreHaute{
+
+
+    width: 30%;
+  }
+
   .LigneEcriture {
     display: flex;
     flex-direction: column;

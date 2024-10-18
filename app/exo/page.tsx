@@ -59,9 +59,13 @@ export default function Exo() {
   }, []);
 
   useEffect(() => {
-    const exoElement = document.getElementById("idExo");
+    //const exoElement = document.getElementById("idExo");
+    let exoElement = document.getElementById("ZOZO");
+
     if (exoElement) {
-      exoElement.textContent = "Question " + CompteurExo + "/" + CompteurExoTotal;
+      //exoElement.textContent = "Question " + CompteurExo + "/" + CompteurExoTotal;
+      exoElement.textContent = "Comptabiliser l'écriture : " + CompteurExo + "/" + CompteurExoTotal;
+
       console.log("Question " + CompteurExo + "/" + CompteurExoTotal)
     }
     if (CompteurExo == CompteurExoTotal) {
@@ -242,7 +246,7 @@ export default function Exo() {
         setscoreUser(prev => prev + 1);
       }
       else {
-        result.innerHTML = `Mauvaise réponse : Il y a ${erreur} erreur(s)`;
+        result.innerHTML = `Faux : ${erreur} erreur(s)`;
         result.classList.add(Styles.resultFAUX);
         result.classList.remove(Styles.resultOK);
       }
@@ -309,10 +313,15 @@ export default function Exo() {
     // Incrémente le compteur
     setCompteurExo(prev => prev + 1);
 
-    let exoElement = document.getElementById("idExo");
+    // let exoElement = document.getElementById("idExo");
+    let exoElement = document.getElementById("ZOZO");
+
     if (exoElement) {
-      exoElement.textContent = "Question " + CompteurExo + "/" + CompteurExoTotal;
-    }
+      //exoElement.textContent = "Question " + CompteurExo + "/" + CompteurExoTotal;
+      exoElement.textContent = "Comptabiliser l'écriture : " + CompteurExo + "/" + CompteurExoTotal;
+  }
+
+      
 
     const result = document.getElementById("result");
     const Btnsuiv = document.getElementById("Btnsuiv");
@@ -374,15 +383,24 @@ export default function Exo() {
       <div className={Styles.master}>
         <div id="boite">
 
-          <p id="idExo" className={Styles.idOP}></p>
 
-          {/* Bouton Retour au menu */}
-          <button className={Styles.customButton}
-            onClick={handleRetourMenu} >
-            Retour au menu ❌
-          </button>
 
-          <h1 id="ZOZO" >Comptabiliser l'écriture : </h1>
+
+          <div id='BarreHaute' className={Styles.BarreHaute} >
+            {/* <button className={Styles.customButton}
+              onClick={handleRetourMenu} >
+              Retour au menu
+            </button> */}
+            <p id="Autre" className={Styles.BtnBarreHaute} onClick={handleRetourMenu}>Menu</p>
+            <p id="idExo" className={Styles.idOP}></p>
+            <p id="Autre" className={Styles.BtnBarreHaute}> à voir</p>
+          </div>
+
+
+
+
+
+          <h1 id="ZOZO" className={Styles.ZOZO} >Comptabiliser l'écriture : </h1>
           {/* Question */}
           {data ? (
             <p className={Styles.styleQuestion}
@@ -414,7 +432,6 @@ export default function Exo() {
             ))}
           </div>
 
-          <br /><br />
 
           <div className={Styles.container}>
             {/* Bouton Valider l'écriture */}
@@ -426,7 +443,7 @@ export default function Exo() {
 
           <br /><br />
 
-          <h2 id="textCorrigé" style={{ display: 'none' }}>Corrigé :</h2>
+          <p id="textCorrigé" className= {Styles.textCorrigé} style={{ display: 'none', textAlign:'center' }}>Corrigé :</p>
           <br />
           {/* Tableau corrigé */}
           <div id="TABcorrigé" className={Styles.TAB} style={{ display: 'none' }}>
