@@ -35,3 +35,25 @@
 .logo {
   @apply cursor-pointer rounded-full transform duration-100 ease-in-out;
 }
+
+
+
+
+/* Cache les liens spécifiques sous 1400px */
+@media (max-width: 1400px) {
+  .lg\\:block {
+    display: none;
+  }
+}
+
+/* Style des liens dans le menu déroulant */
+.dropdownLink {
+  display: block;
+  padding: 8px 16px;
+  color: #000000;
+  text-decoration: none;
+}
+
+.dropdownLink:hover {
+  background-color: #f0f0f0;
+}

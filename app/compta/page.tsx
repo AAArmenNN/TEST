@@ -139,10 +139,6 @@ export default function compta() {
       {/* <th style={{ height: '80px' }}> */}
 
 
-
-      <br />
-
-
       <h2 id="quoi" className={Styles.quoi}>{text}</h2>
 
       <br />
