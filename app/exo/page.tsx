@@ -321,8 +321,6 @@ export default function Exo() {
       exoElement.textContent = "Comptabiliser l'écriture : " + CompteurExo + "/" + CompteurExoTotal;
   }
 
-      
-
     const result = document.getElementById("result");
     const Btnsuiv = document.getElementById("Btnsuiv");
     const BtnVal = document.getElementById("BtnVal");
@@ -383,9 +381,6 @@ export default function Exo() {
       <div className={Styles.master}>
         <div id="boite">
 
-
-
-
           <div id='BarreHaute' className={Styles.BarreHaute} >
             {/* <button className={Styles.customButton}
               onClick={handleRetourMenu} >
@@ -395,10 +390,6 @@ export default function Exo() {
             <p id="idExo" className={Styles.idOP}></p>
             <p id="Autre" className={Styles.BtnBarreHaute}> à voir</p>
           </div>
-
-
-
-
 
           <h1 id="ZOZO" className={Styles.ZOZO} >Comptabiliser l'écriture : </h1>
           {/* Question */}
@@ -431,7 +422,6 @@ export default function Exo() {
               </div>
             ))}
           </div>
-
 
           <div className={Styles.container}>
             {/* Bouton Valider l'écriture */}

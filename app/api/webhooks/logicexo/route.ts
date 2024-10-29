@@ -38,8 +38,13 @@ function OPN() {
     énoncé = "Chargement";
 
     let idOp = randomNum(0, operations.length);
+
+    console.log("idOp après let = " + idOp);
+
     idOp = operations[idOp];
     //idOp=12
+    console.log("idOp après idOp = operations[idOp]; = " + idOp);
+
 
     énoncé = "Aucun thème séléctionné";
 
@@ -895,6 +900,7 @@ export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
         const selections = body.valeursCochees;
+        console.log("selections 1 = "+selections)
 
          // Vérifie si selections est un tableau valide
          if (!Array.isArray(selections)) {
@@ -903,14 +909,19 @@ export async function POST(request: NextRequest) {
 
         // Logique de traitement
         operations = []; // Réinitialise les opérations
+        console.log("selections 2 = "+selections)
+
 
         selections.forEach((selection: number) => {
             if (operationMap[selection]) {
                 operations = operations.concat(operationMap[selection]);
             }
         });
+        console.log("selections 3 = "+selections)
+
 
         OPN();
+        console.log("selections 4 = "+selections)
 
         return NextResponse.json({
             status: 'OK',
