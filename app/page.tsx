@@ -100,7 +100,7 @@ export default async function PricingPage() {
                     </p>
 
                     <p className={Styles.benef}>
-                        “On s'entraine sur des exercices qui tombent le jour de l'examen, c'est fou les automatismes que ça developpe !”
+                        “On s'entraine beaucoup sur des exercices qui tombent le jour de l'examen, c'est fou les automatismes que ça developpe !”
                     </p>
                 </div>
                 <div className={Styles.avis}>
