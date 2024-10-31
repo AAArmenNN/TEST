@@ -42,6 +42,10 @@ export default function Navlinks({ user }: NavlinksProps) {
         {/* Menu responsive */}
         <nav className="ml-6 space-x-4 lg:block hidden md:flex">
           <Link href="/" className={s.link}>
+            Accueil
+          </Link>
+
+          <Link href="/tarifs" className={s.link}>
             Tarifs
           </Link>
 
@@ -73,9 +77,9 @@ export default function Navlinks({ user }: NavlinksProps) {
           <div
             ref={menuRef}
             className="absolute top-full mt-2 bg-white shadow-lg p-4 rounded-md z-50 space-y-3"
-            >
+          >
             <Link href="/" className={s.dropdownLink} onClick={toggleMenu}>
-            Accueil
+              Accueil
             </Link>
 
             <Link href="/tarifs" className={s.dropdownLink} onClick={toggleMenu}>

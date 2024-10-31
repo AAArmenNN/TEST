@@ -30,10 +30,19 @@ interface Props {
   subscription: SubscriptionWithProduct | null;
 }
 
-type BillingInterval = 'lifetime' | 'month';
+type BillingInterval = 'lifetime' | 'year' | 'month';
 
 export default function Pricing({ user, products, subscription }: Props) {
+  const intervals = Array.from(
+    new Set(
+      products.flatMap((product) =>
+        product?.prices?.map((price) => price?.interval)
+      )
+    )
+  );
   const router = useRouter();
+  const [billingInterval, setBillingInterval] =
+    useState<BillingInterval>('month');
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
   const currentPath = usePathname();
 
@@ -105,17 +114,48 @@ export default function Pricing({ user, products, subscription }: Props) {
             <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-600 sm:text-center sm:text-2xl">
               Devenir un expert des écritures comptables !
             </p>
+
+            
+            <div className="relative self-center mt-6 bg-zinc-900 rounded-lg p-0.5 flex sm:mt-8 border border-zinc-800">
+              {intervals.includes('month') && (
+
+
+                <button
+                  onClick={() => setBillingInterval('month')}
+                  type="button"
+                  className={`${billingInterval === 'month'
+                      ? 'relative w-1/2 bg-zinc-700 border-zinc-800 shadow-sm text-white'
+                      : 'ml-0.5 relative w-1/2 border border-transparent text-zinc-400'
+                    } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
+                >
+                  Mensuel
+                </button>
+
+              )}
+              {intervals.includes('year') && (
+
+
+                <button
+                  onClick={() => setBillingInterval('year')}
+                  type="button"
+                  className={`${billingInterval === 'year'
+                      ? 'relative w-1/2 bg-zinc-700 border-zinc-800 shadow-sm text-white'
+                      : 'ml-0.5 relative w-1/2 border border-transparent text-zinc-400'
+                    } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
+                >
+                  Annuel
+                </button>
+
+
+
+              )}
+            </div>
           </div>
           <div className="mt-12 space-y-0 sm:mt-16 flex flex-wrap justify-center gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0">
             {products.map((product) => {
               const price = product?.prices?.find(
-                (price) => price.interval !== null && ['month', 'lifetime'].includes(price.interval)
+                (price) => price.interval === billingInterval
               );
-              console.log('Price Interval ==:', price?.interval); // Ajoutez ce log pour vérifier les valeurs
-              
-              
-
-              
               if (!price) return null;
               const priceString = new Intl.NumberFormat('en-US', {
                 style: 'currency',
@@ -132,9 +172,9 @@ export default function Pricing({ user, products, subscription }: Props) {
                         ? product.name === subscription?.prices?.products?.name
                         : product.name === 'Freelancer'
                     },
-                    'flex-1', 
-                    'basis-1/3', 
-                    'max-w-xs' 
+                    'flex-1', // This makes the flex item grow to fill the space
+                    'basis-1/3', // Assuming you want each card to take up roughly a third of the container's width
+                    'max-w-xs' // Sets a maximum width to the cards to prevent them from getting too large
                   )}
                 >
                   <div className="p-6">
@@ -147,7 +187,7 @@ export default function Pricing({ user, products, subscription }: Props) {
                         {priceString}
                       </span>
                       <span className="text-base font-medium text-zinc-100">
-                        /{price.interval === 'month' ? 'mois' : 'à vie'}
+                        /{billingInterval}
                       </span>
                     </p>
                     <Button
@@ -164,6 +204,8 @@ export default function Pricing({ user, products, subscription }: Props) {
               );
             })}
           </div>
+
+          {/* <LogoCloud /> */}
         </div>
       </section>
     );

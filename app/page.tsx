@@ -7,6 +7,8 @@ import {
 } from '@/utils/supabase/queries';
 import { Resend } from 'resend';
 import WelcomeEmail from './WelcomeEmail'; // Importation du template React
+import Styles from '../styles/landingpage.module.css';
+
 
 
 console.log("Hello App.Page")
@@ -52,10 +54,35 @@ export default async function PricingPage() {
 
     return (
         <>
+        <h1 className="text-4xl font-extrabold text-zinc-700 sm:text-center sm:text-6xl">
+        Pas encore au niveau en compta ?
+        </h1>
 
-            <p>
-                Accueil
+        <p className={Styles.accroche}>
+        Progresser très rapidement avec Compta Training en seulement 15min par jours !
             </p>
+
+        
+        {/* <div className={Styles.accrochefond}>
+
+
+        <p className={Styles.accroche}>
+            Toujours pas au niveau en compta ?
+            </p>
+            <p className={Styles.accroche}>
+            Progresser très rapidement avec Compta Training en seulement 15min par jours
+            </p>
+
+
+
+        </div> */}
+
+
+            <Pricing
+      user={user}
+      products={products ?? []}
+      subscription={subscription}
+    />
         </>
     );
 
