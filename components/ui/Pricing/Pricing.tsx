@@ -11,28 +11,18 @@ import cn from 'classnames';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
 
-type Subscription = Tables<'subscriptions'>;
 type Product = Tables<'products'>;
 type Price = Tables<'prices'>;
 interface ProductWithPrices extends Product {
   prices: Price[];
 }
-interface PriceWithProduct extends Price {
-  products: Product | null;
-}
-interface SubscriptionWithProduct extends Subscription {
-  prices: PriceWithProduct | null;
-}
 
 interface Props {
   user: User | null | undefined;
   products: ProductWithPrices[];
-  subscription: SubscriptionWithProduct | null;
 }
 
-type BillingInterval = 'lifetime' | 'month';
-
-export default function Pricing({ user, products, subscription }: Props) {
+export default function Pricing({ user, products }: Props) {
   const router = useRouter();
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
   const currentPath = usePathname();
@@ -45,10 +35,7 @@ export default function Pricing({ user, products, subscription }: Props) {
       return router.push('/signin/signup');
     }
 
-    const { errorRedirect, sessionId } = await checkoutWithStripe(
-      price,
-      currentPath
-    );
+    const { errorRedirect, sessionId } = await checkoutWithStripe(price, currentPath);
 
     if (errorRedirect) {
       setPriceIdLoading(undefined);
@@ -58,11 +45,7 @@ export default function Pricing({ user, products, subscription }: Props) {
     if (!sessionId) {
       setPriceIdLoading(undefined);
       return router.push(
-        getErrorRedirect(
-          currentPath,
-          'An unknown error occurred.',
-          'Please try again later or contact a system administrator.'
-        )
+        getErrorRedirect(currentPath, 'An unknown error occurred.', 'Please try again later or contact a system administrator.')
       );
     }
 
@@ -72,22 +55,17 @@ export default function Pricing({ user, products, subscription }: Props) {
     setPriceIdLoading(undefined);
   };
 
-  if (!products.length) {
+  // Filtrer les produits avec abonnement mensuel
+  const filteredProducts = products.filter((product) =>
+    product.prices.some(price => price.interval === null || price.interval === 'month')
+  );
+
+  if (!filteredProducts.length) {
     return (
       <section className="bg-black">
         <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
-          <div className="sm:flex sm:flex-col sm:align-center"></div>
           <p className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
-            No subscription pricing plans found. Create them in your{' '}
-            <a
-              className="text-pink-500 underline"
-              href="https://dashboard.stripe.com/products"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Stripe Dashboard
-            </a>
-            .
+            Aucun produit trouvé.
           </p>
         </div>
         <LogoCloud />
@@ -99,42 +77,35 @@ export default function Pricing({ user, products, subscription }: Props) {
         <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
           <div className="sm:flex sm:flex-col sm:align-center">
             <h1 className="text-4xl font-extrabold text-zinc-700 sm:text-center sm:text-6xl">
-              Choisir l'abonnement
+              Choisir un plan
             </h1>
-
             <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-600 sm:text-center sm:text-2xl">
-              Devenir un expert des écritures comptables !
+              Gagnez du temps et des points à l'examen ! 🏆
             </p>
           </div>
-          <div className="mt-12 space-y-0 sm:mt-16 flex flex-wrap justify-center gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0">
-            {products.map((product) => {
-              const price = product?.prices?.find(
-                (price) => price.interval !== null && ['month', 'lifetime'].includes(price.interval)
+          <div className="mt-12 flex flex-wrap justify-center gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0">
+            {filteredProducts.map((product) => {
+              const price = product.prices.find(
+                (price) => price.interval === null || price.interval === 'month' // Inclure les prix sans intervalle et avec intervalle mensuel
               );
-              console.log('Price Interval ==:', price?.interval); // Ajoutez ce log pour vérifier les valeurs
-              
-              
 
-              
               if (!price) return null;
+
               const priceString = new Intl.NumberFormat('en-US', {
                 style: 'currency',
                 currency: price.currency!,
                 minimumFractionDigits: 0
               }).format((price?.unit_amount || 0) / 100);
+
               return (
                 <div
                   key={product.id}
                   className={cn(
                     'flex flex-col rounded-lg shadow-sm divide-y divide-zinc-600 bg-zinc-900',
-                    {
-                      'border border-pink-500': subscription
-                        ? product.name === subscription?.prices?.products?.name
-                        : product.name === 'Freelancer'
-                    },
-                    'flex-1', 
-                    'basis-1/3', 
-                    'max-w-xs' 
+                    'flex-1',
+                    'basis-1/2', // Deux cartes par ligne sur écrans plus petits
+                    'max-w-xs',
+                    'sm:basis-1/3' // Une carte par ligne sur écrans plus larges
                   )}
                 >
                   <div className="p-6">
@@ -147,7 +118,7 @@ export default function Pricing({ user, products, subscription }: Props) {
                         {priceString}
                       </span>
                       <span className="text-base font-medium text-zinc-100">
-                        /{price.interval === 'month' ? 'mois' : 'à vie'}
+                        {price.interval === 'month' ? ' / mois' : ' (Produit unique)'}
                       </span>
                     </p>
                     <Button
@@ -157,7 +128,7 @@ export default function Pricing({ user, products, subscription }: Props) {
                       onClick={() => handleStripeCheckout(price)}
                       className="block w-full py-2 mt-8 text-sm font-semibold text-center text-black rounded-md hover:bg-zinc-800"
                     >
-                      {subscription ? 'Gérer' : "S'abonner"}
+                      Choisir cette offre
                     </Button>
                   </div>
                 </div>

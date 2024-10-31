@@ -54,7 +54,7 @@ export default async function PricingPage() {
     <Pricing
       user={user}
       products={products ?? []}
-      subscription={subscription}
+      // subscription={subscription}
     />
   );
 
