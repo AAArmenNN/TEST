@@ -897,6 +897,8 @@ export async function POST(request: NextRequest) {
 // Fonction POST côté serveur
 
 export async function POST(request: NextRequest) {
+    console.log("POST start")
+
     try {
         const body = await request.json();
         const selections = body.valeursCochees;
