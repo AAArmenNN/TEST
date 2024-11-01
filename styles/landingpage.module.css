@@ -1,0 +1,244 @@
+.accroche1 {
+    font-size: 4.25rem; /* 4xl corresponds à environ 36px */
+    font-weight: 850; /* font-extrabold */
+    color: rgb(66, 66, 66);
+    text-align: center;
+  }
+
+
+.accroche2 {
+    margin-top: 20px;
+    font-size: 30px;
+    color: rgb(50, 50, 50);
+    text-align: center;
+    font-weight: 700;
+
+}
+
+.benef {
+
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    margin-bottom: 15px;
+
+
+
+
+}
+
+
+.beneffond {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1.5px solid rgb(8, 54, 54);
+    /* Bordure */
+
+
+}
+/* .cadregif {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1.5px solid rgb(8, 54, 54);
+
+
+} */
+.gif {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-radius: 20px;
+    border: 3px solid rgb(8, 54, 54);
+
+
+    /* margin-top: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1.5px solid rgb(8, 54, 54); */
+    /* Bordure */
+
+
+}
+
+
+
+.titreavis {
+    text-align: center;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    color: rgb(0, 0, 0);
+
+
+}
+
+.partieavis {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    background-color: rgb(232, 232, 232);
+    padding: 20px;
+    border-radius: 20px;
+    border: 1.5px solid rgb(8, 54, 54);
+    /* Bordure */
+
+
+}
+
+
+.nomavis {
+
+    font-size: 23px;
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+
+
+}
+
+.avis {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 20px;
+    border: 1.5px solid rgb(8, 54, 54);
+    /* Bordure */
+
+
+}
+
+
+@media (max-width: 1400px) { 
+    .accroche1 {
+        font-size: 2.25rem; /* 4xl corresponds à environ 36px */
+        font-weight: 850; /* font-extrabold */
+        color: rgb(66, 66, 66);
+        text-align: center;
+      }
+
+    .accroche2 {
+        margin-top: 20px;
+        font-size: 20px;
+        color: rgb(50, 50, 50);
+        text-align: center;
+        font-weight: 700;
+    
+    }
+    
+    .benef {
+    
+        font-size: 18px;
+        color: rgb(0, 0, 0)
+    } 
+    
+    
+    .beneffond {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 20px;
+        border: 1.5px solid rgb(8, 54, 54);
+        /* Bordure */
+    
+    
+    }
+
+    .gif {
+        width: 70%;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        border-radius: 20px;
+        border: 3px solid rgb(8, 54, 54);
+    
+    
+        /* margin-top: 30px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 20px;
+        border: 1.5px solid rgb(8, 54, 54); */
+        /* Bordure */
+    
+    
+    }
+    
+    
+    
+    .titreavis {
+        margin-top: 30px;
+        text-align: center;
+    
+        font-size: 20px;
+        font-weight: 700;
+    
+        color: rgb(0, 0, 0);
+    
+    
+    }
+    
+    .partieavis {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        background-color: rgb(236, 231, 231);
+        padding: 20px;
+        border-radius: 20px;
+        border: 1.5px solid rgb(8, 54, 54);
+        /* Bordure */
+    
+    
+    }
+    
+    
+    .nomavis {
+    
+        font-size: 23px;
+        font-weight: 700;
+        color: rgb(0, 0, 0);
+    
+    
+    }
+    
+    .avis {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        background-color: rgb(255, 255, 255);
+        padding: 20px;
+        border-radius: 20px;
+        border: 1.5px solid rgb(8, 54, 54);
+        /* Bordure */
+    
+    
+    }
+
+
+
+
+
+
+
+
+}
