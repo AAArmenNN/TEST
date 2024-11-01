@@ -75,14 +75,19 @@ export default function Pricing({ user, products }: Props) {
     return (
       <section className="bg-orangeclair">
         <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
-          <div className="sm:flex sm:flex-col sm:align-center">
-            <h1 className="text-4xl font-extrabold text-zinc-700 sm:text-center sm:text-6xl">
-              Choisir un plan
+
+          <div className="flex flex-col items-center text-center">
+            <h1 className="text-4xl font-extrabold text-zinc-700 sm:text-6xl">
+              Choisir une offre
             </h1>
-            <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-600 sm:text-center sm:text-2xl">
-              Gagnez du temps et des points à l'examen ! 🏆
+            <p className="max-w-2xl font-bold mt-5 text-xl text-zinc-600 sm:text-2xl">
+              Gagnez du TEMPS et des POINTS à l'examen ! 🏆
             </p>
           </div>
+
+
+
+
           <div className="mt-12 flex flex-wrap justify-center gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0">
             {filteredProducts.map((product) => {
               const price = product.prices.find(

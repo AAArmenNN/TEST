@@ -61,19 +61,24 @@ export default async function PricingPage() {
             </h1>
 
             <p className={Styles.accroche2}>
-                Progresser très rapidement avec Compta Training en seulement 15min par jours !
+                Progresser très rapidement en seulement 15min par jour !
             </p>
 
 
             <div className={Styles.beneffond}>
                 <p className={Styles.benef}>
                     ✅ Choisissez le sujet de vos écritures comptables<br />
-                    ✅ Compta Training génère des questions identiques aux examens avec des nouveaux montants a chaque fois<br />
-                    ✅ Complétez les cases, et obtenez instantanément VOTRE corrigé personalisé
-
                 </p>
+                <p className={Styles.benef}>
+                    ✅ Compta Training génère des questions d'examen avec de nouveaux montants à chaque fois !<br />
+                </p>
+                <p className={Styles.benef}>
+                    ✅ Complétez les cases, et VOTRE corrigé personnalisé apparaît !
+                </p>
+            </div>
 
-
+            <div className={Styles.cadregif}>
+                <img src="/compta-training-demo.gif" alt="Démonstration Compta Training" className={Styles.gif} />
 
             </div>
 
@@ -88,47 +93,45 @@ export default async function PricingPage() {
 
 
             <p className={Styles.titreavis}>
-                Avis utilisateurs de Compta training :
+                Avis utilisateurs de Compta training : ❤️
             </p>
             {/* <div className={Styles.partieavis}> */}
 
 
 
-                <div className={Styles.avis}>
-                    <p className={Styles.nomavis}>
-                        Laura. L
-                    </p>
+            <div className={Styles.avis}>
+                <p className={Styles.nomavis}>
+                    Alexis P.
+                </p>
+                <p className={Styles.benef}>
+                    “On s'entraîne beaucoup sur des exercices qui tombent le jour de l'examen, c'est fou les automatismes que ça développe !”
+                </p>
+            </div>
+            <div className={Styles.avis}>
+                <p className={Styles.nomavis}>
+                    Benoît A.
+                </p>
+                <p className={Styles.benef}>
+                    “Perso, j'utilise Compta Training dans les transports sur mon iPhone pour continuer à m'entraîner quand j'ai un moment. L'interface est super intuitive !”
+                </p>
+            </div>
+            <div className={Styles.avis}>
+                <p className={Styles.nomavis}>
+                    Mathéo, étudiant en BTS CG
+                </p>
+                <p className={Styles.benef}>
+                    “Je suis passé de la confusion en cours à la clarté en quelques semaines seulement !”
+                </p>
+            </div>
+            <div className={Styles.avis}>
+                <p className={Styles.nomavis}>
+                    Nadia, étudiante en DCG
+                </p>
+                <p className={Styles.benef}>
+                    “Compta Training a totalement changé ma vision de la comptabilité ! En 15 minutes par jour, j'ai pu renforcer mes bases et progresser à un rythme incroyable !”
+                </p>
+            </div>
 
-                    <p className={Styles.benef}>
-                        “On s'entraine beaucoup sur des exercices qui tombent le jour de l'examen, c'est fou les automatismes que ça developpe !”
-                    </p>
-                </div>
-                <div className={Styles.avis}>
-                    <p className={Styles.nomavis}>
-                        Benoît. A
-                    </p>
-
-                    <p className={Styles.benef}>
-                        “Perso j'utilise compta training dans les transports sur mon iphone pour continuer à m'entrainer quand j'ai un moment. L'interface est super naturelle”
-                    </p>
-                </div>
-                <div className={Styles.avis}>
-                    <p className={Styles.nomavis}>
-                        Mathéo, étudiante en BTS CG
-                    </p>
-
-                    <p className={Styles.benef}>
-                        “Je suis passé de la confusion en cours à la clarté en quelques semaines seulement !”                    </p>
-                </div>
-                <div className={Styles.avis}>
-                    <p className={Styles.nomavis}>
-                        Élodie, étudiante en DCG
-                    </p>
-
-                    <p className={Styles.benef}>
-                        “Compta Training a totalement changé ma vision de la comptabilité ! En 15 minutes par jour, j’ai pu renforcer mes bases et progresser à un rythme incroyable !”
-                    </p>
-                </div>
 
 
 
