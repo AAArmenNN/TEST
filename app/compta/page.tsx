@@ -1,41 +1,34 @@
-"use client"; // Ajoute cette ligne en haut pour indiquer que c'est un composant client
+//PAGE MENU app/compta/page.tsx
+
+"use client";
 
 import Head from 'next/head';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Styles from '../../styles/menu.module.css';
 
-
 export default function compta() {
-
-  // Création de l'état pour gérer le texte du <h2>
   const [text, setText] = useState('Sélectionner les thèmes à réviser');
-  //let ComptePreRemplis = 0
-
-  // Gestion des états
   const [nbop, setNbop] = useState(0);
   const [checkedValues, setCheckedValues] = useState<string[]>([]);
-  const [comptePreRemplis, setComptePreRemplis] = useState(9); // valeur par défaut
+  const [comptePreRemplis, setComptePreRemplis] = useState(9);
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
-  // Fonction pour le nombre d'opérations
   const updateNbOP = (nb: number) => {
     setNbop(nb);
     localStorage.setItem('CompteurExoTotal', nb.toString());
   };
 
-
-  // Fonction pour gérer l'aide compte
   const aideCompte = (yn: number) => {
-     //ouinon = yn;
-     console.log("aideCompte ="+yn)
-
     setComptePreRemplis(yn);
     localStorage.setItem('ComptePreRemplis', yn.toString());
   };
+  // =======================================================================================================
 
-  // Fonction pour vérifier les thèmes sélectionnés
+  console.log("sendDataToServer = AVANT")
+
+
   const caseTheme = () => {
-
     const checkboxes = document.querySelectorAll('.CBA') as NodeListOf<HTMLInputElement>;
     const selectedValues: string[] = [];
 
@@ -45,46 +38,57 @@ export default function compta() {
       }
     });
 
-    /*
-        if (document.getElementById("buy")?.style.display === "block") { // POUR UN SEUL THEME VERSION FREE
-          selectedValues.length = 0;
-          selectedValues.push("1");
+    //selectedValues correspond aux thème selectionnés, c'est cette valeur que je veux récupéré coté serveur
+
+    // Fonction d'envoi
+    console.log("caseTheme = OK")
+
+
+    const sendDataToServer = async () => {
+      console.log("sendDataToServer = OK")
+
+      //const data = { theme: '1,2' };
+      //const data = { theme: selectedValues };
+      const data = { 
+        theme: { 
+          valeursCochees: selectedValues // Mettre les valeurs dans 'valeursCochees'
         }
-        localStorage.setItem('Valeurscochées', JSON.stringify(selectedValues));
-    */
+      };
 
-    // Envoyer les valeurs au serveur
-    fetch('/api/webhooks/logicexo', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ valeursCochees: selectedValues }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Réponse du serveur :', data);
-      })
-      .catch(error => {
-        console.error('Erreur :', error);
+    
+      const response = await fetch('/api/webhooks/logicexo/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json',},
+        body: JSON.stringify(data),  // Envoie la donnée au serveur sous forme de JSON
       });
-      
+    
+      const result = await response.json();
+      console.log(result);
+    };
+    
+    sendDataToServer();
 
-    if (selectedValues.length === 0) { // Pour les alertes POP UP
-      //validateForm();
-      alert("Aucun theme");
 
+
+
+
+    if (selectedValues.length === 0) {
+      alert("Aucun thème sélectionné");
     } else if (nbop === 0) {
       alert("Choisir le nombre d'opération");
     } else if (comptePreRemplis === 9) {
       alert("Choisir le remplissage des numéros de comptes");
     } else {
-      window.location.href = '/exo'; // Redirige vers la page exo
+      const themeParam = encodeURIComponent(selectedValues.join("!"));
+      window.location.href = `/exo?themes=${themeParam}`;
     }
-
   };
 
-  // Fonction pour gérer la sélection/désélection de toutes les cases à cocher
+
+
+
+  // =======================================================================================================
+
   const handleSelectAll = (selectAllId: string, classCB: string) => {
     const selectAllCheckbox = document.getElementById(selectAllId) as HTMLInputElement | null;
     const categoryCheckboxes = document.querySelectorAll(`.${classCB}`) as NodeListOf<HTMLInputElement>;
@@ -92,14 +96,11 @@ export default function compta() {
     if (selectAllCheckbox) {
       selectAllCheckbox.addEventListener('change', () => {
         const isChecked = selectAllCheckbox.checked;
-
-        // Cocher/décocher toutes les cases dans la catégorie
         categoryCheckboxes.forEach(checkbox => {
           checkbox.checked = isChecked;
         });
       });
 
-      // Si toutes les cases de la catégorie sont cochées, cocher le selectAll
       categoryCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', () => {
           const allChecked = Array.from(categoryCheckboxes).every(checkbox => checkbox.checked);
@@ -108,17 +109,14 @@ export default function compta() {
       });
     }
   };
+
   useEffect(() => {
     handleSelectAll('AselectAll', 'CBA');
     handleSelectAll('BselectAll', 'CBB');
     handleSelectAll('CselectAll', 'CBC');
   }, []);
 
-
-
-
-
-  const validateForm = () => { // POP UP
+  const validateForm = () => {
     document.getElementById("overlay")!.style.display = "block";
     document.getElementById("popup")!.style.display = "block";
   };
@@ -165,15 +163,15 @@ export default function compta() {
             {[
               "L'achat et la vente de biens en France",
               "L'achat et la vente de services en France",
-              "L'achat et la vente de biens hors de France",
-              "L'achat et la vente de services hors de France",
-              "Amortissements",
-              "Dépréciations",
-              "Provisions",
-              "Opération de change",
-              "PCA CCA",
-              "Passage exercice à une autre",
-              "RRR escompte",
+              "L'achat et la vente de biens hors de France (bientôt)",
+              "L'achat et la vente de services hors de France (bientôt)",
+              "Amortissements (bientôt)",
+              "Dépréciations (bientôt)",
+              "Provisions (bientôt)",
+              "Opération de change (bientôt)",
+              "PCA CCA (bientôt)",
+              "Passage exercice à une autre (bientôt)",
+              "RRR escompte (bientôt)",
               "Subventions"
             ].map((item, index) => (
               <tr key={index}>
@@ -205,18 +203,18 @@ export default function compta() {
               </th>
             </tr>
             {[
-              "L'achat et la vente de biens en France",
-              "L'achat et la vente de services en France",
-              "L'achat et la vente de biens hors de France",
-              "L'achat et la vente de services hors de France",
-              "Amortissements",
-              "Dépréciations",
-              "Provisions",
-              "Opération de change",
-              "PCA CCA",
-              "Passage exercice à une autre",
-              "RRR escompte",
-              "Subventions"
+              "L'achat et la vente de biens en France (bientôt)",
+              "L'achat et la vente de services en France (bientôt)",
+              "L'achat et la vente de biens hors de France (bientôt)",
+              "L'achat et la vente de services hors de France (bientôt)",
+              "Amortissements (bientôt)",
+              "Dépréciations (bientôt)",
+              "Provisions (bientôt)",
+              "Opération de change (bientôt)",
+              "PCA CCA (bientôt)",
+              "Passage exercice à une autre (bientôt)",
+              "RRR escompte (bientôt)",
+              "Subventions (bientôt)"
             ].map((item, index) => (
               <tr key={index}>
                 <td>
@@ -247,18 +245,18 @@ export default function compta() {
               </th>
             </tr>
             {[
-              "L'achat et la vente de biens en France",
-              "L'achat et la vente de services en France",
-              "L'achat et la vente de biens hors de France",
-              "L'achat et la vente de services hors de France",
-              "Amortissements",
-              "Dépréciations",
-              "Provisions",
-              "Opération de change",
-              "PCA CCA",
-              "Passage exercice à une autre",
-              "RRR escompte",
-              "Subventions"
+              "L'achat et la vente de biens en France (bientôt)",
+              "L'achat et la vente de services en France (bientôt)",
+              "L'achat et la vente de biens hors de France (bientôt)",
+              "L'achat et la vente de services hors de France (bientôt)",
+              "Amortissements (bientôt)",
+              "Dépréciations (bientôt)",
+              "Provisions (bientôt)",
+              "Opération de change (bientôt)",
+              "PCA CCA (bientôt)",
+              "Passage exercice à une autre (bientôt)",
+              "RRR escompte (bientôt)",
+              "Subventions (bientôt)"
             ].map((item, index) => (
               <tr key={index}>
                 <td>
@@ -323,14 +321,8 @@ export default function compta() {
         </button>
       </div>
 
-
       <br />
       <br />
-
-
-
-
-
     </>
   )
 }

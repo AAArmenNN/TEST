@@ -1,55 +1,52 @@
+//cote serveur logicexo app/api/webhooks/logicexo/route.ts
+
 import { NextRequest, NextResponse } from 'next/server';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-//-------------------------------------------------------------------------------
+
+
+// Variables globales
 let scoreUser = 0;
-
-let ReponseDébit2 = []; // 2eme tableau
-let ReponseCrédit2 = []; // 2eme tableau
-
+let ReponseDébit2: any[] = [];
+let ReponseCrédit2: any[] = [];
 let MainNomOP: string[] = [];
 let MainCompte: any[] = [];
 let MainDébit: any[] = [];
 let MainCrédit: any[] = [];
 let MainDate: string[] = [];
-
-let énoncé: any = "vide"
+let énoncé: string = "vide";
 let paterne = 0;
-
-
 let operations: any[] = [];
 
 // Map des IDs d'opérations associées aux checkboxes
 const operationMap: Record<number, string[]> = {
-  1: ['1', '2', '3', '4', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'], // Opérations pour checkbox 1
+  1: ['1', '2', '3', '4', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'],
   2: ['20', '21'],
   3: [],
   7: ['701', '702'],
   12: ['51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61']
 };
 
-
 function randomNum(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min)) + min;
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 
 
 function OPN() {
+    console.log("°°°°°°°°°°°°°°°°°°°°°°°° Début OPN")
     énoncé = "Chargement";
 
     let idOp = randomNum(0, operations.length);
 
-    console.log("idOp après let = " + idOp);
+    console.log("NB Random = " + idOp);
 
     idOp = operations[idOp];
     //idOp=12
-    console.log("idOp après idOp = operations[idOp]; = " + idOp);
+    console.log("idOp: operations[idOp]; = " + idOp);
 
 
     énoncé = "Aucun thème séléctionné";
-
-  
-    console.log("ID de l'opération = " + idOp);
 
     // ________________________________________________________________________________________________________________
     MainDate[0] = randomNum(1, 28) + "/" + randomNum(1, 12) + "/" + randomNum(2023, 2025); // Date de l'opération
@@ -881,37 +878,118 @@ function OPN() {
     }
 
 
+    console.log("°°°°°°°°°°°°°°°°°°°°°°°° Fin OPN")
 
 }
 
-//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------  
+// Exporter explicitement la méthode POST
 
-/*
-export async function POST(request: NextRequest) {
-    OPN(); // Génère de nouvelles données côté serveur
+export async function POST(req: NextRequest) {
+    try {
+      const { theme } = await req.json(); // Récupérer les données envoyées par le client
+      console.log("=============================")
+      console.log('Theme reçu :', theme);
 
-    // Réponse de confirmation que les données ont été mises à jour
-    return NextResponse.json({ status: 'OK', message: 'Nouvelles données générées avec succès.' });
-}*/
+       // Vérification que 'theme' contient bien 'valeursCochees'
+    if (!theme || !Array.isArray(theme.valeursCochees)) {
+        throw new Error("Propriété 'valeursCochees' manquante ou invalide dans le thème");
+      }
+  
+      const selections = theme.valeursCochees; // Récupérer les thèmes sélectionnés
+      console.log('selections = ', selections);
+
+      // Logique de traitement
+      operations = []; // Réinitialise les opérations
+  
+      selections.forEach((selection: number) => {
+        if (operationMap[selection]) {
+          operations = operations.concat(operationMap[selection]);
+        }
+      });
+
+      console.log('operations = ', operations);
+
+      console.log("=============================")
+
+
+
+        OPN();
+
+        console.log("=============================")
+        console.log('Theme choisi ////', énoncé);
+        console.log("=============================")
+
+
+  
+      // Vous pouvez ajouter un traitement supplémentaire ici
+  
+      return NextResponse.json({ message: 'Données reçues avec succès' }, { status: 200 });
+    } catch (error: unknown) {
+      // Castez l'erreur en Error pour accéder à ses propriétés
+      if (error instanceof Error) {
+        console.error('Erreur lors du traitement du POST :', error.message);
+        return NextResponse.json({ message: 'Erreur lors du traitement', error: error.message }, { status: 500 });
+      } else {
+        // Si l'erreur n'est pas une instance d'Error, vous pouvez gérer un autre type d'erreur ici
+        console.error('Erreur inconnue', error);
+        return NextResponse.json({ message: 'Erreur inconnue', error: 'Erreur inconnue' }, { status: 500 });
+      }
+    }
+  }
+  
+
+
+//-------------------------------------------------------------------------------  
+// Fonction GET pour récupérer les thèmes depuis l'URL
+export async function GET(request: NextRequest) {
+    console.log("----------------------------------------");
+    console.log("GET start");
+
+// c'est la que je veux recevoir selectedValues qui correspond aux thème selectionnés
+    OPN();
+
+    const data = {
+        message: énoncé,
+        MainNomOP: MainNomOP,
+        MainDate: MainDate,
+        MainCompte: MainCompte,
+        MainDébit: MainDébit,
+        MainCrédit: MainCrédit,
+        paterne: paterne
+    };
+
+    console.log("GET FIN");
+    console.log("----------------------------------------");
+
+    return NextResponse.json(data);
+}
 
 // Fonction POST côté serveur
 
+
+
+
+// ANCIEN
+/*
 export async function POST(request: NextRequest) {
     console.log("POST start")
 
     try {
-        const body = await request.json();
-        const selections = body.valeursCochees;
-        console.log("selections 1 = "+selections)
+        
+        const { theme } = await request.json(); // Récupérer les données envoyées par le client
+        console.log("=============================")
+        console.log('Theme reçu :', theme);
 
-         // Vérifie si selections est un tableau valide
-         if (!Array.isArray(selections)) {
-            throw new Error("Les valeurs cochées ne sont pas un tableau valide.");
+        // Vérification que 'theme' contient bien 'valeursCochees'
+        if (!theme || !Array.isArray(theme.valeursCochees)) {
+            throw new Error("Propriété 'valeursCochees' manquante ou invalide dans le thème");
         }
+        const selections = theme.valeursCochees; // Récupérer les thèmes sélectionnés
 
         // Logique de traitement
         operations = []; // Réinitialise les opérations
-        console.log("selections 2 = "+selections)
+        console.log("selections 2 = " + selections)
 
 
         selections.forEach((selection: number) => {
@@ -947,7 +1025,7 @@ export async function POST(request: NextRequest) {
     }
 }
 
-/*
+
 export async function GET(request: NextRequest) {
     const now = new Date().toISOString();
 
@@ -971,37 +1049,6 @@ export async function GET(request: NextRequest) {
 
     // Renvoie la réponse JSON
     return NextResponse.json(data);
-}*/
-export async function GET(request: NextRequest) {
-    const now = new Date().toISOString();
-
-    // Vérifier si 'operations' est vide
-    if (operations.length === 0) {
-        console.log("GET a été appelé avant que POST initialise les données.");
-        return NextResponse.json({
-            status: 'ERROR',
-            message: 'Les données ne sont pas initialisées. Veuillez d\'abord envoyer une requête POST.'
-        }, { status: 400 });
-    }
-
-    // Logique de récupération des données
-    console.log("message 1 = " + now);
-    console.log("operations.length = " + operations.length);
-    OPN();
-
-    const data = {
-        message: énoncé,
-        MainNomOP: MainNomOP,
-        MainDate: MainDate,
-        MainCompte: MainCompte,
-        MainDébit: MainDébit,
-        MainCrédit: MainCrédit,
-        paterne: paterne
-    };
-
-    // Renvoie la réponse JSON
-    return NextResponse.json(data);
 }
-
-
+*/
 

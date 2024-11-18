@@ -60,7 +60,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
             className="mt-1"
             loading={isSubmitting}
           >
-            Sign up
+            Se connecter
           </Button>
         </div>
       </form>
@@ -72,9 +72,9 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
       </p>
       {allowEmail && (
         <p>
-          <Link href="/signin/email_signin" className="font-light text-sm">
+          {/* <Link href="/signin/email_signin" className="font-light text-sm">
             Sign in via magic link
-          </Link>
+          </Link> */}
         </p>
       )}
     </div>

@@ -1,3 +1,4 @@
+//PAGE EXO app/exo/page.tsx
 "use client"; // Ajoute cette ligne en haut pour indiquer que c'est un composant client
 
 import Head from 'next/head';
@@ -396,9 +397,11 @@ export default function Exo() {
           {data ? (
             <p className={Styles.styleQuestion}
               id="ask"
+              
               dangerouslySetInnerHTML={{
                 __html: data.message.replace(/\n/g, '<br />'),
               }}
+                
             />
           ) : (
             <p>Chargement...</p>
